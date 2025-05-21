@@ -4,21 +4,30 @@ An open-source Unity framework for loading 3D scenes at runtime from external JS
 
 ---
 
-## 🌍 Project Vision
+## 🌐 Project Vision — The 3D Web for Everyone
 
-The goal is to create a runtime scene loading system for Unity that allows users to:
+This project isn't just about technology—it’s about **redefining the internet**.
 
-- Host and serve 3D scenes as open JSON + glTF documents
-- Define scene behavior using a whitelist of safe, predefined scripts
-- Share and explore user-made spaces with no recompilation or Unity knowledge
-- Cache all models and content locally for fast revisits
-- Maintain a secure runtime that never executes untrusted code
+We envision a **free, open-source metaverse** where:
+- Anyone can **host** their own public or private space
+- Anyone can **join** a shared 3D world simply by entering a link
+- Entire environments are loaded **on-demand** using open standards like JSON and glTF
+- Users, artists, developers, and organizations can build experiences that are **interconnected**, **decentralized**, and **persistently accessible**
 
-This project is ideal for:
-- Metaverse-style platforms
-- User-generated worlds
-- Decentralized content hosting
-- Lightweight multiplayer lobbies or exploration spaces
+This is the natural evolution of the internet:  
+### → The **WWW in 3D** — or as we call it, **WWW3D**.
+
+Like web pages, every virtual space can be:
+- **Public** (open to all)
+- **Private** (joinable only with a key)
+- **Self-hosted** (your server, your rules)
+- **Portable** (linkable, shareable, remixable)
+
+No central company. No gatekeepers.  
+Just an ecosystem of people and worlds—linked together like websites.
+
+Our long-term goal is to create a 3D browsing experience that works like the web:  
+Click a link → load the scene → explore → interact → move on.
 
 ---
 
