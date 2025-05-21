@@ -1,9 +1,3 @@
-# 🪐 Open Metaverse Scene Loader
-
-An open-source Unity framework for loading 3D scenes at runtime from external JSON and glTF definitions. Designed for decentralization, user-generated content, and lightweight client-side rendering with secure, sandboxed behaviors.
-
----
-
 ## 🌐 Project Vision — The 3D Web for Everyone
 
 This project isn't just about technology—it’s about **redefining the internet**.
@@ -59,6 +53,8 @@ Scenes are defined using a JSON file that includes:
   ],
   "formatVersion": 1
 }
+```
+
 ## 🚦 Runtime Flow
 
 When a player joins a space:
