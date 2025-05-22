@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2ea6006843c0d4fa839b243e769df1, type: 3}
   m_Name: SceneExportSettings
   m_EditorClassIdentifier: 
-  sceneName: NewScene
-  authorName: Anonymous
-  remoteBaseModelURL: https://myserver.com/models/
-  localModelBasePath: C:/MyModels/
+  Name: Test
+  Description: test scene with altar
+  Author: LoboForge
+  WebModelLocation: https://www.loboforge.com/Assets/
+  BaseModelPath: Resources/Models
+  AdultContent: 0
+  ContentRating: 2
+  PrimaryLanguage: 0

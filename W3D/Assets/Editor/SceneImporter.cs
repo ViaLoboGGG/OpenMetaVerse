@@ -7,7 +7,7 @@ using System;
 public class SceneImporter : EditorWindow
 {
     private string jsonPath;
-
+    private ExportedScene previewScene;
     [MenuItem("Tools/Import Scene from JSON")]
     public static void ShowWindow()
     {
@@ -24,12 +24,29 @@ public class SceneImporter : EditorWindow
             if (!string.IsNullOrEmpty(path))
             {
                 jsonPath = path;
+                string json = File.ReadAllText(jsonPath);
+                previewScene = JsonUtility.FromJson<ExportedScene>(json);
             }
         }
 
         if (!string.IsNullOrEmpty(jsonPath))
         {
+            GUILayout.Space(10);
             GUILayout.Label($"Selected: {Path.GetFileName(jsonPath)}");
+
+            if (previewScene != null)
+            {
+                GUILayout.Space(10);
+                EditorGUILayout.LabelField("Scene Metadata", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField("Name", previewScene.Name);
+                EditorGUILayout.LabelField("Author", previewScene.Author);
+                EditorGUILayout.LabelField("Description", previewScene.Description, EditorStyles.wordWrappedLabel);
+                EditorGUILayout.LabelField("Content Rating", previewScene.ContentRating.ToString());
+                EditorGUILayout.LabelField("Language", previewScene.PrimaryLanguage.ToString());
+                EditorGUILayout.Toggle("Adult Content", previewScene.AdultContent);
+            }
+
+            GUILayout.Space(10);
             if (GUILayout.Button("Import"))
             {
                 ImportScene(jsonPath);

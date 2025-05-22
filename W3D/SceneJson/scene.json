@@ -1,37 +1,13 @@
 {
     "objects": [
         {
-            "id": "c39194c9-a3b5-4743-b13d-f1f370b8a672",
+            "id": "7153e83c-b8ee-43a1-951f-c372551fa645",
             "parentId": "",
-            "name": "ImportedScene_scene",
-            "position": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            },
-            "scale": {
-                "x": 1.0,
-                "y": 1.0,
-                "z": 1.0
-            },
-            "primitiveType": "",
-            "scripts": [],
-            "components": [],
-            "materials": []
-        },
-        {
-            "id": "bf8c39ad-0331-4f03-bb63-7f3789d48b52",
-            "parentId": "c39194c9-a3b5-4743-b13d-f1f370b8a672",
             "name": "Plane",
             "position": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
+                "x": 0.3524676561355591,
+                "y": 6.724032402038574,
+                "z": -4.274317264556885
             },
             "rotation": {
                 "x": 0.0,
@@ -44,6 +20,11 @@
                 "z": 2.0
             },
             "primitiveType": "Plane",
+            "modelPath": "",
+            "modelSource": 0,
+            "materials": [
+                "RuntimeDefaultMaterial"
+            ],
             "scripts": [],
             "components": [
                 {
@@ -59,14 +40,11 @@
                         }
                     ]
                 }
-            ],
-            "materials": [
-                "RuntimeDefaultMaterial"
             ]
         },
         {
-            "id": "e6796059-4de8-4901-8071-57b73d8469ac",
-            "parentId": "bf8c39ad-0331-4f03-bb63-7f3789d48b52",
+            "id": "41496b98-7bb3-4c90-afcd-d22e5312e36b",
+            "parentId": "7153e83c-b8ee-43a1-951f-c372551fa645",
             "name": "Cube (1)",
             "position": {
                 "x": 0.0,
@@ -84,6 +62,11 @@
                 "z": 1.0
             },
             "primitiveType": "Cube",
+            "modelPath": "",
+            "modelSource": 0,
+            "materials": [
+                "BasicGreen"
+            ],
             "scripts": [],
             "components": [
                 {
@@ -103,14 +86,11 @@
                         }
                     ]
                 }
-            ],
-            "materials": [
-                "BasicGreen"
             ]
         },
         {
-            "id": "9f377d6d-888b-44fc-b179-e902ac5aeca3",
-            "parentId": "e6796059-4de8-4901-8071-57b73d8469ac",
+            "id": "514edef6-e1d2-416c-8111-ad4f2e6ee35d",
+            "parentId": "41496b98-7bb3-4c90-afcd-d22e5312e36b",
             "name": "Cube",
             "position": {
                 "x": 0.0,
@@ -128,6 +108,11 @@
                 "z": 0.5
             },
             "primitiveType": "Cube",
+            "modelPath": "",
+            "modelSource": 0,
+            "materials": [
+                "BasicBlue"
+            ],
             "scripts": [],
             "components": [
                 {
@@ -147,14 +132,11 @@
                         }
                     ]
                 }
-            ],
-            "materials": [
-                "BasicBlue"
             ]
         },
         {
-            "id": "84c368f4-9a90-449d-84dd-6845e8fcd42d",
-            "parentId": "9f377d6d-888b-44fc-b179-e902ac5aeca3",
+            "id": "2451d01f-1326-42e9-a9ac-53360d8d6562",
+            "parentId": "514edef6-e1d2-416c-8111-ad4f2e6ee35d",
             "name": "Sphere",
             "position": {
                 "x": 0.0,
@@ -172,6 +154,11 @@
                 "z": 1.0
             },
             "primitiveType": "Sphere",
+            "modelPath": "",
+            "modelSource": 0,
+            "materials": [
+                "BasicBlack"
+            ],
             "scripts": [],
             "components": [
                 {
@@ -191,19 +178,16 @@
                         }
                     ]
                 }
-            ],
-            "materials": [
-                "BasicBlack"
             ]
         },
         {
-            "id": "c034d479-8aeb-42c9-bd8e-4f07918874e5",
-            "parentId": "bf8c39ad-0331-4f03-bb63-7f3789d48b52",
+            "id": "fce28994-9c8d-49ea-99de-b3736b8729f3",
+            "parentId": "",
             "name": "Blue_glowing_crystal__0515052952_texture",
             "position": {
-                "x": -1.404159665107727,
-                "y": 0.0,
-                "z": -0.14049053192138673
+                "x": 0.0,
+                "y": 6.670000076293945,
+                "z": 0.0
             },
             "rotation": {
                 "x": -0.000004325710960983997,
@@ -211,16 +195,26 @@
                 "z": 0.0
             },
             "scale": {
-                "x": 50.0,
-                "y": 50.0,
-                "z": 50.0
+                "x": 100.0,
+                "y": 100.0,
+                "z": 100.0
             },
             "primitiveType": "",
-            "scripts": [],
-            "components": [],
+            "modelPath": "",
+            "modelSource": 0,
             "materials": [
                 "Material.001"
-            ]
+            ],
+            "scripts": [],
+            "components": []
         }
-    ]
+    ],
+    "Name": "Test",
+    "Description": "",
+    "Author": "LoboForge",
+    "WebModelLocation": "https://www.loboforge.com/Assets/",
+    "BaseModelPath": "Resources/Models",
+    "AdultContent": false,
+    "ContentRating": 2,
+    "PrimaryLanguage": 0
 }
