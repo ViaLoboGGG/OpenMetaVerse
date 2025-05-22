@@ -136,4 +136,4 @@ Inspired by:
 
 ---
 
-Let’s build **WWW3D**—the 3D web that belongs to everyone.
+Let’s build **W3D**—the 3D web that belongs to everyone.
