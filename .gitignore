@@ -1,0 +1,83 @@
+# =============== #
+# Unity Specific  #
+# =============== #
+
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+UserSettings/
+
+# Avoid Unity-generated .csproj / .sln files unless you want them in version control
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+
+# Unity cache & preview
+*.apk
+*.unitypackage
+*.mdb
+*.pdb
+
+# Auto-generated VS Code settings
+.vscode/
+.vs/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Crash Reports
+sysinfo.txt
+
+# =============== #
+# OS Specific     #
+# =============== #
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Linux
+*~
+
+# =============== #
+# Git Specific    #
+# =============== #
+
+# Git conflict files
+*.orig
+
+# Ignore Unity Collab (if using Unity Teams, optional)
+.collab/
+
+# =============== #
+# Optional        #
+# =============== #
+
+# Uncomment these lines if you're using addressables
+#Assets/AddressableAssetsData/*.bin*
+#Assets/AddressableAssetsData/*.json
+
+# Uncomment if you have a Packages folder inside Assets (not common)
+#Assets/Packages/
+
+# Uncomment if you don’t want to commit the EditorBuildSettings
+#ProjectSettings/EditorBuildSettings.asset
+

@@ -1,0 +1,226 @@
+{
+    "objects": [
+        {
+            "id": "c39194c9-a3b5-4743-b13d-f1f370b8a672",
+            "parentId": "",
+            "name": "ImportedScene_scene",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "primitiveType": "",
+            "scripts": [],
+            "components": [],
+            "materials": []
+        },
+        {
+            "id": "bf8c39ad-0331-4f03-bb63-7f3789d48b52",
+            "parentId": "c39194c9-a3b5-4743-b13d-f1f370b8a672",
+            "name": "Plane",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 2.0,
+                "y": 2.0,
+                "z": 2.0
+            },
+            "primitiveType": "Plane",
+            "scripts": [],
+            "components": [
+                {
+                    "type": "MeshCollider",
+                    "properties": [
+                        {
+                            "key": "isTrigger",
+                            "value": "False"
+                        },
+                        {
+                            "key": "convex",
+                            "value": "False"
+                        }
+                    ]
+                }
+            ],
+            "materials": [
+                "RuntimeDefaultMaterial"
+            ]
+        },
+        {
+            "id": "e6796059-4de8-4901-8071-57b73d8469ac",
+            "parentId": "bf8c39ad-0331-4f03-bb63-7f3789d48b52",
+            "name": "Cube (1)",
+            "position": {
+                "x": 0.0,
+                "y": 0.273830771446228,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 0.5,
+                "z": 1.0
+            },
+            "primitiveType": "Cube",
+            "scripts": [],
+            "components": [
+                {
+                    "type": "BoxCollider",
+                    "properties": [
+                        {
+                            "key": "isTrigger",
+                            "value": "False"
+                        },
+                        {
+                            "key": "center",
+                            "value": "(0.000, 0.000, 0.000)"
+                        },
+                        {
+                            "key": "size",
+                            "value": "(1.000, 1.000, 1.000)"
+                        }
+                    ]
+                }
+            ],
+            "materials": [
+                "BasicGreen"
+            ]
+        },
+        {
+            "id": "9f377d6d-888b-44fc-b179-e902ac5aeca3",
+            "parentId": "e6796059-4de8-4901-8071-57b73d8469ac",
+            "name": "Cube",
+            "position": {
+                "x": 0.0,
+                "y": 0.9700000286102295,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.5,
+                "y": 1.0,
+                "z": 0.5
+            },
+            "primitiveType": "Cube",
+            "scripts": [],
+            "components": [
+                {
+                    "type": "BoxCollider",
+                    "properties": [
+                        {
+                            "key": "isTrigger",
+                            "value": "False"
+                        },
+                        {
+                            "key": "center",
+                            "value": "(0.000, 0.000, 0.000)"
+                        },
+                        {
+                            "key": "size",
+                            "value": "(1.000, 1.000, 1.000)"
+                        }
+                    ]
+                }
+            ],
+            "materials": [
+                "BasicBlue"
+            ]
+        },
+        {
+            "id": "84c368f4-9a90-449d-84dd-6845e8fcd42d",
+            "parentId": "9f377d6d-888b-44fc-b179-e902ac5aeca3",
+            "name": "Sphere",
+            "position": {
+                "x": 0.0,
+                "y": 1.0323383808135987,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "primitiveType": "Sphere",
+            "scripts": [],
+            "components": [
+                {
+                    "type": "SphereCollider",
+                    "properties": [
+                        {
+                            "key": "isTrigger",
+                            "value": "False"
+                        },
+                        {
+                            "key": "center",
+                            "value": "(0.000, 0.000, 0.000)"
+                        },
+                        {
+                            "key": "radius",
+                            "value": "0.5"
+                        }
+                    ]
+                }
+            ],
+            "materials": [
+                "BasicBlack"
+            ]
+        },
+        {
+            "id": "c034d479-8aeb-42c9-bd8e-4f07918874e5",
+            "parentId": "bf8c39ad-0331-4f03-bb63-7f3789d48b52",
+            "name": "Blue_glowing_crystal__0515052952_texture",
+            "position": {
+                "x": -1.404159665107727,
+                "y": 0.0,
+                "z": -0.14049053192138673
+            },
+            "rotation": {
+                "x": -0.000004325710960983997,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0,
+                "z": 50.0
+            },
+            "primitiveType": "",
+            "scripts": [],
+            "components": [],
+            "materials": [
+                "Material.001"
+            ]
+        }
+    ]
+}
