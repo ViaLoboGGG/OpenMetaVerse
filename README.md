@@ -110,6 +110,23 @@ This will allow creators to "build their world in Unity, export it to JSON, and 
 - ⏳ Multi-scene world navigation
 - ⏳ Authentication layer for private spaces
 - ⏳ Portal objects to jump between 3D scenes like hyperlinks
+
+## 🔞 Handling 18+ Content
+
+We recognize that the internet has always included adult-oriented content, and the 3D web will be no different. However, our platform is committed to balancing freedom of expression with user safety and content labeling standards.
+
+### Key Principles:
+
+- **Decentralized Responsibility**: We do not host content ourselves. Each world or space is hosted by its owner, who is responsible for the content they serve.
+- **Content Tagging**: JSON scene manifests may include optional metadata fields such as `"ageRating": "18+"` or `"nsfw": true` to help clients and aggregators filter scenes appropriately.
+- **Client-Side Filtering**: Implementations of the loader should allow users or platforms to opt-in or opt-out of NSFW content via settings or parental controls.
+- **Private Spaces**: Explicit content may only be accessible through invite-only or key-locked spaces, not open links. This prevents accidental exposure.
+- **No Default Indexing**: 18+ spaces are not publicly indexed or discoverable unless explicitly listed and tagged by the host.
+
+This approach mirrors the original spirit of the web: **freedom with responsibility**—where open standards enable expression, and filtering is opt-in, not censorship.
+
+
+
 ## 📄 License
 
 This project is open-source and MIT licensed.
