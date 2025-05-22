@@ -1,5 +1,4 @@
-// Editor/SceneExporter.cs
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
@@ -8,7 +7,7 @@ using System.Collections.Generic;
 public class SceneExporter : EditorWindow
 {
     private string exportFileName = "scene.json";
-    private string baseModelPath = "Resources/Models"; // new base path field
+    private SceneExportSettings settings;
 
     [MenuItem("Tools/Export Scene to JSON")]
     public static void ShowWindow()
@@ -16,11 +15,29 @@ public class SceneExporter : EditorWindow
         GetWindow<SceneExporter>("Scene Exporter");
     }
 
+    private void OnEnable()
+    {
+        settings = SceneExportSettingsWindow.GetSettings();
+    }
+
     private void OnGUI()
     {
         GUILayout.Label("Export Current Scene", EditorStyles.boldLabel);
+
+        if (settings != null)
+        {
+            EditorGUILayout.HelpBox("Settings loaded from SceneExportSettings.asset", MessageType.Info);
+            EditorGUILayout.LabelField("Scene Name", settings.Name);
+            EditorGUILayout.LabelField("Author", settings.Author);
+            EditorGUILayout.LabelField("Remote Model Base URL", settings.WebModelLocation);
+            EditorGUILayout.LabelField("Local Model Path", settings.BaseModelPath);
+        }
+        else
+        {
+            EditorGUILayout.HelpBox("No SceneExportSettings.asset found. Defaults will be used.", MessageType.Warning);
+        }
+
         exportFileName = EditorGUILayout.TextField("File Name", exportFileName);
-        baseModelPath = EditorGUILayout.TextField("Base Model Path", baseModelPath);
 
         if (GUILayout.Button("Export Scene"))
         {
@@ -30,17 +47,33 @@ public class SceneExporter : EditorWindow
 
     private void ExportSceneToJson(string filename)
     {
+        if (string.IsNullOrWhiteSpace(filename))
+        {
+            Debug.LogError("Invalid export filename.");
+            return;
+        }
+
+        GameObject root = GameObject.Find("Root");
+        if (root == null)
+        {
+            Debug.LogError("Root GameObject not found. Aborting export.");
+            return;
+        }
+
         var sceneData = new ExportedScene
         {
             objects = new List<ExportedObject>(),
-            baseModelPath = baseModelPath
+            BaseModelPath = settings != null ? settings.BaseModelPath : "Resources/Models",
+            Name = settings != null ? settings.Name : "UnnamedScene",
+            Author = settings != null ? settings.Author : "UnknownAuthor",
+            WebModelLocation = settings != null ? settings.WebModelLocation : ""
         };
 
         Dictionary<Transform, string> idLookup = new();
 
-        foreach (var root in SceneManager.GetActiveScene().GetRootGameObjects())
+        foreach (Transform child in root.transform)
         {
-            ExportGameObjectRecursive(root.transform, sceneData, idLookup, null);
+            ExportGameObjectRecursive(child, sceneData, idLookup, null);
         }
 
         string json = JsonUtility.ToJson(sceneData, true);
@@ -49,7 +82,7 @@ public class SceneExporter : EditorWindow
         if (!string.IsNullOrEmpty(path))
         {
             File.WriteAllText(path, json);
-            Debug.Log($"Scene exported to {path}");
+            Debug.Log($"✅ Scene exported to {path}");
         }
     }
 
@@ -79,10 +112,10 @@ public class SceneExporter : EditorWindow
             materials = new List<string>()
         };
 
-        // Primitive type detection
+        // Primitive type
         if (go.TryGetComponent<MeshFilter>(out var meshFilter) && meshFilter.sharedMesh != null)
         {
-            var meshName = meshFilter.sharedMesh.name.ToLower();
+            string meshName = meshFilter.sharedMesh.name.ToLower();
             if (meshName.Contains("cube")) obj.primitiveType = "Cube";
             else if (meshName.Contains("sphere")) obj.primitiveType = "Sphere";
             else if (meshName.Contains("capsule")) obj.primitiveType = "Capsule";
@@ -91,7 +124,7 @@ public class SceneExporter : EditorWindow
             else if (meshName.Contains("quad")) obj.primitiveType = "Quad";
         }
 
-        // Detect model path if prefab
+        // Model path
         var prefabSource = PrefabUtility.GetCorrespondingObjectFromSource(go);
         if (prefabSource != null)
         {
@@ -101,10 +134,12 @@ public class SceneExporter : EditorWindow
                 string relative = path.Substring(path.IndexOf("Resources/Models/") + "Resources/Models/".Length);
                 relative = Path.ChangeExtension(relative, null);
                 obj.modelPath = relative;
+                obj.modelSource = ModelSourceType.Resources;
             }
             else
             {
-                obj.modelPath = Path.GetFileNameWithoutExtension(path);
+                obj.modelPath = path;
+                obj.modelSource = ModelSourceType.FileSystem;
             }
         }
 

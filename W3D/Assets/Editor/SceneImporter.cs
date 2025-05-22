@@ -1,5 +1,4 @@
-﻿// Editor/SceneImporter.cs
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
@@ -43,41 +42,58 @@ public class SceneImporter : EditorWindow
         Dictionary<string, GameObject> createdObjects = new();
         string json = File.ReadAllText(path);
         ExportedScene scene = JsonUtility.FromJson<ExportedScene>(json);
-        GameObject root = new GameObject("ImportedScene_" + Path.GetFileNameWithoutExtension(path));
 
-        string baseModelPath = scene.baseModelPath ?? "";
+        // 🔄 Remove previous "Root" if it exists
+        var existingRoot = GameObject.Find("Root");
+        if (existingRoot != null)
+            GameObject.DestroyImmediate(existingRoot);
 
+        // 📦 Create new Root object
+        GameObject root = new GameObject("Root");
+        var holder = root.AddComponent<ExportedSceneData>();
+        holder.scene = scene;
+
+        string baseModelPath = scene.BaseModelPath ?? "";
+
+        // 🧱 Instantiate all scene objects
         foreach (var obj in scene.objects)
         {
             GameObject go = null;
 
-            // 1. Try loading from Resources
+            // Load model by modelPath and source
             if (!string.IsNullOrEmpty(obj.modelPath))
             {
-                string resourcePath = Path.Combine("Models", obj.modelPath).Replace("\\", "/");
-                GameObject prefab = Resources.Load<GameObject>(resourcePath);
-                if (prefab != null)
+                switch (obj.modelSource)
                 {
-                    go = GameObject.Instantiate(prefab);
-                    Debug.Log($"✅ Loaded model from Resources: {resourcePath}");
-                }
-                else
-                {
-                    // 2. Try local disk
-                    string localFullPath = Path.Combine(baseModelPath, obj.modelPath);
-                    if (File.Exists(localFullPath))
-                    {
-                        go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                        go.name = $"[LOCAL MODEL] {obj.modelPath}";
-                        Debug.Log($"🟡 Placeholder for model on disk: {localFullPath}");
-                    }
-                    // 3. Remote URL (placeholder only)
-                    else if (Uri.IsWellFormedUriString(obj.modelPath, UriKind.Absolute))
-                    {
-                        go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                        go.name = $"[REMOTE MODEL] {obj.modelPath}";
-                        Debug.Log($"🌐 Placeholder for remote model: {obj.modelPath}");
-                    }
+                    case ModelSourceType.Resources:
+                        string resourcePath = Path.Combine("Models", obj.modelPath).Replace("\\", "/");
+                        var prefab = Resources.Load<GameObject>(resourcePath);
+                        if (prefab != null)
+                        {
+                            go = GameObject.Instantiate(prefab);
+                            Debug.Log($"✅ Loaded prefab from Resources: {resourcePath}");
+                        }
+                        break;
+
+                    case ModelSourceType.FileSystem:
+                        string fullPath = Path.Combine(baseModelPath, obj.modelPath);
+                        if (File.Exists(fullPath))
+                        {
+                            // You would plug in an actual model importer (FBX, GLTF, etc.)
+                            go = GameObject.CreatePrimitive(PrimitiveType.Cube); // placeholder
+                            go.name = $"[FILE] {Path.GetFileName(obj.modelPath)}";
+                            Debug.Log($"🟡 Placeholder for file: {fullPath}");
+                        }
+                        break;
+
+                    case ModelSourceType.RemoteURL:
+                        if (Uri.IsWellFormedUriString(obj.modelPath, UriKind.Absolute))
+                        {
+                            go = GameObject.CreatePrimitive(PrimitiveType.Cube); // placeholder
+                            go.name = $"[URL] {Path.GetFileName(obj.modelPath)}";
+                            Debug.Log($"🌐 Placeholder for URL: {obj.modelPath}");
+                        }
+                        break;
                 }
             }
 
@@ -90,10 +106,11 @@ public class SceneImporter : EditorWindow
                 }
             }
 
+            // Last fallback
             if (go == null)
             {
                 go = new GameObject(obj.name);
-                Debug.LogWarning($"❌ Failed to instantiate model or primitive: {obj.name}");
+                Debug.LogWarning($"❌ Could not load model or primitive for: {obj.name}");
             }
 
             go.name = obj.name;
@@ -103,11 +120,11 @@ public class SceneImporter : EditorWindow
             go.transform.localEulerAngles = obj.rotation;
             go.transform.localScale = obj.scale != Vector3.zero ? obj.scale : Vector3.one;
 
-            // Apply materials
+            // 🎨 Load materials
             var renderer = go.GetComponent<Renderer>();
             if (renderer != null)
             {
-                List<Material> loadedMats = new List<Material>();
+                List<Material> loadedMats = new();
                 if (obj.materials != null)
                 {
                     foreach (var matName in obj.materials)
@@ -116,7 +133,7 @@ public class SceneImporter : EditorWindow
                         if (mat != null)
                             loadedMats.Add(mat);
                         else
-                            Debug.LogWarning($"Material '{matName}' not found.");
+                            Debug.LogWarning($"Material '{matName}' not found in Resources.");
                     }
                 }
 
@@ -132,7 +149,7 @@ public class SceneImporter : EditorWindow
                 renderer.sharedMaterials = loadedMats.ToArray();
             }
 
-            // Add components
+            // 🧩 Add components
             foreach (var comp in obj.components)
                 AddComponentFromData(go, comp);
 
@@ -142,7 +159,7 @@ public class SceneImporter : EditorWindow
             go.transform.SetParent(root.transform, false);
         }
 
-        // Set parent hierarchy
+        // 🔗 Reconstruct hierarchy
         foreach (var obj in scene.objects)
         {
             if (!string.IsNullOrEmpty(obj.parentId) &&
@@ -153,7 +170,7 @@ public class SceneImporter : EditorWindow
             }
         }
 
-        Debug.Log("Scene imported successfully.");
+        Debug.Log("✅ Scene imported successfully.");
     }
 
     private void AddComponentFromData(GameObject go, ExportedComponent comp)
