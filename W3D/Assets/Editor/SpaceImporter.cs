@@ -1,8 +1,13 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityGLTF;
 using System.IO;
 using System.Collections.Generic;
 using System;
+using System.Threading.Tasks;
+using UnityGLTF.Loader;
+using GluonGui.WorkspaceWindow.Views.WorkspaceExplorer;
 
 public class SpaceImporter : EditorWindow
 {
@@ -50,139 +55,92 @@ public class SpaceImporter : EditorWindow
             GUILayout.Space(10);
             if (GUILayout.Button("Import"))
             {
-                ImportSpace(jsonPath);
+                _ = ImportSpaceAsync(jsonPath);
             }
         }
     }
 
-    private void ImportSpace(string path)
+    private async Task ImportSpaceAsync(string path)
     {
         Dictionary<string, GameObject> createdObjects = new();
         string json = File.ReadAllText(path);
-        ExportedSpace Space = JsonUtility.FromJson<ExportedSpace>(json);
+        ExportedSpace space = JsonUtility.FromJson<ExportedSpace>(json);
 
-        // 🔄 Remove previous "Root" if it exists
         var existingRoot = GameObject.Find("Root");
         if (existingRoot != null)
             GameObject.DestroyImmediate(existingRoot);
 
-        // 📦 Create new Root object
         GameObject root = new GameObject("Root");
         var holder = root.AddComponent<ExportedSpaceData>();
-        holder.Space = Space;
+        holder.Space = space;
 
-        string baseModelPath = Space.BaseModelPath ?? "";
-
-        // 🧱 Instantiate all Space objects
-        foreach (var obj in Space.objects)
+        foreach (var obj in space.objects)
         {
             GameObject go = null;
 
-            // 1️⃣ Override: Specific File Path
-            if (!string.IsNullOrEmpty(obj.overrideFilePath) && File.Exists(obj.overrideFilePath))
+            // Load from glTF if specified or fallback to primitives
+            string gltfPath = ResolveModelPath(space, obj);
+            if (!string.IsNullOrEmpty(gltfPath))
             {
-                go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                go.name = $"[OVERRIDE FILE] {Path.GetFileName(obj.overrideFilePath)}";
-                Debug.Log($"📁 Using overrideFilePath: {obj.overrideFilePath}");
-            }
-            // 2️⃣ Override: Remote URL
-            else if (!string.IsNullOrEmpty(obj.overrideRemoteURL) && Uri.IsWellFormedUriString(obj.overrideRemoteURL, UriKind.Absolute))
-            {
-                go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                go.name = $"[OVERRIDE URL] {Path.GetFileName(obj.overrideRemoteURL)}";
-                Debug.Log($"🌐 Using overrideRemoteURL: {obj.overrideRemoteURL}");
-            }
-            // 3️⃣ Fallback to modelPath + modelSource
-            else if (!string.IsNullOrEmpty(obj.modelPath))
-            {
-                switch (obj.modelSource)
+                Debug.Log("Attmpting to load gltf");
+                if (File.Exists(gltfPath))
                 {
-                    case ModelSourceType.Resources:
-                        string resourcePath = Path.Combine("Models", obj.modelPath).Replace("\\", "/");
-                        var prefab = Resources.Load<GameObject>(resourcePath);
-                        if (prefab != null)
-                        {
-                            go = GameObject.Instantiate(prefab);
-                            Debug.Log($"✅ Loaded prefab from Resources: {resourcePath}");
-                        }
-                        break;
-
-                    case ModelSourceType.FileSystem:
-                        string fullPath = Path.Combine(Space.BaseModelPath ?? "", obj.modelPath);
-                        if (File.Exists(fullPath))
-                        {
-                            go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                            go.name = $"[FILE] {Path.GetFileName(obj.modelPath)}";
-                            Debug.Log($"🟡 Placeholder for file: {fullPath}");
-                        }
-                        break;
-
-                    case ModelSourceType.RemoteURL:
-                        string remoteURL = $"{Space.WebModelLocation}/{obj.modelPath}".Replace("\\", "/");
-                        if (Uri.IsWellFormedUriString(remoteURL, UriKind.Absolute))
-                        {
-                            go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                            go.name = $"[URL] {Path.GetFileName(obj.modelPath)}";
-                            Debug.Log($"🌐 Placeholder for URL: {remoteURL}");
-                        }
-                        break;
+                    go = await LoadGltfFromDisk(gltfPath);
+                }
+                else if (Uri.IsWellFormedUriString(gltfPath, UriKind.Absolute))
+                {
+                    go = await LoadGltfFromUrl(gltfPath);
                 }
             }
 
-            // 4️⃣ Fallback to primitive type
+            // Fallback to primitive
             if (go == null && !string.IsNullOrEmpty(obj.primitiveType))
             {
                 if (Enum.TryParse(obj.primitiveType, out PrimitiveType primitive))
                 {
                     go = GameObject.CreatePrimitive(primitive);
-                    Debug.Log($"🧱 Created primitive: {primitive}");
+                    Debug.Log($"🧱 Primitive created: {primitive}");
                 }
             }
 
-            // 5️⃣ Final fallback
             if (go == null)
             {
                 go = new GameObject(obj.name);
-                Debug.LogWarning($"❌ Could not load model or primitive for: {obj.name}");
+                Debug.LogWarning($"❌ Could not resolve model or primitive for: {obj.name}");
             }
 
             go.name = obj.name;
             createdObjects[obj.id] = go;
-
             go.transform.localPosition = obj.position;
             go.transform.localEulerAngles = obj.rotation;
             go.transform.localScale = obj.scale != Vector3.zero ? obj.scale : Vector3.one;
 
-            // 🎨 Load materials
+            // Materials
             var renderer = go.GetComponent<Renderer>();
             if (renderer != null)
             {
-                List<Material> loadedMats = new();
+                var mats = new List<Material>();
                 if (obj.materials != null)
                 {
                     foreach (var matName in obj.materials)
                     {
                         var mat = Resources.Load<Material>("Materials/" + matName);
-                        if (mat != null)
-                            loadedMats.Add(mat);
-                        else
-                            Debug.LogWarning($"Material '{matName}' not found in Resources.");
+                        if (mat != null) mats.Add(mat);
+                        else Debug.LogWarning($"Material not found: {matName}");
                     }
                 }
 
-                if (loadedMats.Count == 0)
+                if (mats.Count == 0)
                 {
-                    var fallback = Resources.Load<Material>("DefaultMaterial") ??
-                                   new Material(Shader.Find("Universal Render Pipeline/Lit"));
+                    var fallback = new Material(Shader.Find("Universal Render Pipeline/Lit"));
                     fallback.name = "RuntimeDefaultMaterial";
                     fallback.color = Color.gray;
-                    loadedMats.Add(fallback);
+                    mats.Add(fallback);
                 }
 
-                renderer.sharedMaterials = loadedMats.ToArray();
+                renderer.sharedMaterials = mats.ToArray();
             }
 
-            // 🧩 Add components
             foreach (var comp in obj.components)
                 AddComponentFromData(go, comp);
 
@@ -192,8 +150,8 @@ public class SpaceImporter : EditorWindow
             go.transform.SetParent(root.transform, false);
         }
 
-        // 🔗 Rebuild hierarchy
-        foreach (var obj in Space.objects)
+        // Restore hierarchy
+        foreach (var obj in space.objects)
         {
             if (!string.IsNullOrEmpty(obj.parentId) &&
                 createdObjects.TryGetValue(obj.id, out GameObject child) &&
@@ -203,7 +161,70 @@ public class SpaceImporter : EditorWindow
             }
         }
 
-        Debug.Log("✅ Space imported successfully.");
+        Debug.Log("✅ Space imported with glTF support.");
+    }
+
+    private string ResolveModelPath(ExportedSpace space, ExportedObject obj)
+    {
+        if (!string.IsNullOrEmpty(obj.overrideFilePath) && File.Exists(obj.overrideFilePath))
+            return obj.overrideFilePath;
+
+        if (!string.IsNullOrEmpty(obj.overrideRemoteURL))
+            return obj.overrideRemoteURL;
+
+        if (!string.IsNullOrEmpty(space.BaseModelPath))
+        {
+            string path = Path.Combine(space.BaseModelPath, obj.name + ".gltf");
+            if (File.Exists(path)) return path;
+        }
+
+        if (!string.IsNullOrEmpty(space.WebModelLocation))
+        {
+            return $"{space.WebModelLocation.TrimEnd('/')}/{obj.name}.gltf";
+        }
+
+        return null;
+    }
+
+    private async Task<GameObject> LoadGltfFromDisk(string fullPath)
+    {
+        Debug.Log($"Loading {fullPath} from disk.");
+        string directory = Path.GetDirectoryName(fullPath).Replace("\\", "/");
+        string fileName = Path.GetFileName(fullPath);
+
+        var loader = new FileLoader(directory);
+        var importOptions = new ImportOptions
+        {
+            DataLoader = loader,
+            AsyncCoroutineHelper = new AsyncCoroutineHelper()
+        };
+        var importer = new GLTFSceneImporter(fileName, importOptions);
+
+
+        await importer.LoadSceneAsync(-1, true);
+        GameObject gltfRoot = importer.LastLoadedScene;
+        gltfRoot.name = fileName;
+        return gltfRoot;
+    }
+
+    private async Task<GameObject> LoadGltfFromUrl(string url)
+    {
+        Debug.Log($"Loading gltf from {url}.");
+        string directory = url.Substring(0, url.LastIndexOf('/') + 1);
+        string fileName = Path.GetFileName(url);
+
+        var loader = new FileLoader(directory);
+        var importOptions = new ImportOptions
+        {
+            DataLoader = loader,
+            AsyncCoroutineHelper = new AsyncCoroutineHelper()
+        };
+        var importer = new GLTFSceneImporter(fileName, importOptions);
+
+        await importer.LoadSceneAsync(-1, true);
+        GameObject gltfRoot = importer.LastLoadedScene;
+        gltfRoot.name = fileName;
+        return gltfRoot;
     }
 
     private void AddComponentFromData(GameObject go, ExportedComponent comp)
@@ -258,27 +279,23 @@ public class SpaceImporter : EditorWindow
     private string GetProperty(List<ComponentProperty> props, string key)
     {
         foreach (var prop in props)
-            if (prop.key == key)
-                return prop.value;
+            if (prop.key == key) return prop.value;
         return null;
     }
 
     private float ParseFloat(List<ComponentProperty> props, string key)
     {
-        var str = GetProperty(props, key);
-        return float.TryParse(str, out var f) ? f : 0f;
+        return float.TryParse(GetProperty(props, key), out var f) ? f : 0f;
     }
 
     private bool ParseBool(List<ComponentProperty> props, string key)
     {
-        var str = GetProperty(props, key);
-        return bool.TryParse(str, out var b) && b;
+        return bool.TryParse(GetProperty(props, key), out var b) && b;
     }
 
     private int ParseInt(List<ComponentProperty> props, string key)
     {
-        var str = GetProperty(props, key);
-        return int.TryParse(str, out var i) ? i : 0;
+        return int.TryParse(GetProperty(props, key), out var i) ? i : 0;
     }
 
     private Vector3 ParseVector3(List<ComponentProperty> props, string key)
@@ -295,6 +312,7 @@ public class SpaceImporter : EditorWindow
         {
             return new Vector3(x, y, z);
         }
+
         return Vector3.zero;
     }
 }

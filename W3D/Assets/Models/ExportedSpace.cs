@@ -37,7 +37,6 @@ public class ExportedObject
     public Vector3 scale;
 
     public string primitiveType;   // null for models
-    public string modelPath;       // relative path or filename (e.g. "chair1.glb")
     public ModelSourceType modelSource = ModelSourceType.Resources;
 
     // Optional overrides (optional: if null, use Space defaults)

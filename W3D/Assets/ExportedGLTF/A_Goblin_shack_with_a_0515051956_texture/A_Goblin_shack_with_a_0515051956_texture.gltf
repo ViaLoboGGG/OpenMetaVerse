@@ -1,0 +1,204 @@
+{
+  "asset": {
+    "generator": "UnityGltf 2.16.1, Unity 6000.0.41f1, URP",
+    "version": "2.0"
+  },
+  "extensionsUsed": [
+    "KHR_texture_transform"
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ],
+      "name": "A_Goblin_shack_with_a_0515051956_texture"
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 167164,
+      "type": "VEC3",
+      "max": [
+        0.0099352002143859863,
+        0.0063204597681760788,
+        0.010012999176979065
+      ],
+      "min": [
+        -0.009975469671189785,
+        -0.0063455300405621529,
+        -0.0099823093041777611
+      ]
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 167164,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        0.999998927116394,
+        0.99999868869781494
+      ],
+      "min": [
+        -0.9999997615814209,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 167164,
+      "type": "VEC4",
+      "max": [
+        0.99998974800109863,
+        0.9999847412109375,
+        0.999976634979248,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -0.99999940395355225,
+        -0.99999499320983887,
+        1.0
+      ]
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 167164,
+      "type": "VEC2",
+      "max": [
+        0.99997997283935547,
+        0.9999619722366333
+      ],
+      "min": [
+        3.8939801925153006E-06,
+        1.5974044799804688E-05
+      ]
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5125,
+      "count": 176178,
+      "type": "SCALAR",
+      "max": [
+        167163.0
+      ],
+      "min": [
+        0.0
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "A_Goblin_shack_with_a_0515051956_texture.bin",
+      "byteLength": 8728584
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 2005968,
+      "byteStride": 12,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 2005968,
+      "byteLength": 2005968,
+      "byteStride": 12,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 4011936,
+      "byteLength": 2674624,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 6686560,
+      "byteLength": 1337312,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 8023872,
+      "byteLength": 704712,
+      "target": 34963
+    }
+  ],
+  "images": [
+    {
+      "uri": "texture_2.jpg",
+      "name": "texture_2"
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0,
+          "extensions": {
+            "KHR_texture_transform": {
+              "texCoord": 0
+            }
+          }
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.5
+      },
+      "name": "Material.002"
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
+          },
+          "indices": 4,
+          "material": 0
+        }
+      ],
+      "name": "A_Goblin_shack_with_a_0515051956_texture"
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0,
+      "rotation": [
+        -3.774895E-08,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "name": "A_Goblin_shack_with_a_0515051956_texture"
+    }
+  ],
+  "samplers": [
+    {
+      "minFilter": 9987
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0,
+      "name": "texture_2"
+    }
+  ]
+}

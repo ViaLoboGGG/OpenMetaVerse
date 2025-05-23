@@ -1,13 +1,42 @@
 {
     "objects": [
         {
-            "id": "94d9373a-04ae-4ec3-a269-ab1398ae8afc",
+            "id": "71d4ec75-fae1-454f-b61b-ec7cf2df2c02",
+            "parentId": "",
+            "name": "BlueCrystal",
+            "position": {
+                "x": 4.230000019073486,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": -0.000004325710960983997,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material.001"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "695a30cb-4850-442d-8b40-49d43aa574a9",
             "parentId": "",
             "name": "Plane",
             "position": {
-                "x": 0.3524676561355591,
-                "y": 6.724032402038574,
-                "z": -4.274317264556885
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
             },
             "rotation": {
                 "x": 0.0,
@@ -20,7 +49,6 @@
                 "z": 2.0
             },
             "primitiveType": "Plane",
-            "modelPath": "",
             "modelSource": 0,
             "overrideFilePath": "",
             "overrideRemoteURL": "",
@@ -45,8 +73,8 @@
             ]
         },
         {
-            "id": "889a5dd8-b3ad-4f41-8878-96f9d7e5c70b",
-            "parentId": "94d9373a-04ae-4ec3-a269-ab1398ae8afc",
+            "id": "69d2f232-2cf1-4b59-8783-a49f6653cc64",
+            "parentId": "695a30cb-4850-442d-8b40-49d43aa574a9",
             "name": "Cube (1)",
             "position": {
                 "x": 0.0,
@@ -64,7 +92,6 @@
                 "z": 1.0
             },
             "primitiveType": "Cube",
-            "modelPath": "",
             "modelSource": 0,
             "overrideFilePath": "",
             "overrideRemoteURL": "",
@@ -93,8 +120,8 @@
             ]
         },
         {
-            "id": "b1ced52c-6822-4aef-9bfd-03d08718f1b3",
-            "parentId": "889a5dd8-b3ad-4f41-8878-96f9d7e5c70b",
+            "id": "2f99b15b-ef13-438b-8cdb-77444abc632f",
+            "parentId": "69d2f232-2cf1-4b59-8783-a49f6653cc64",
             "name": "Cube",
             "position": {
                 "x": 0.0,
@@ -112,7 +139,6 @@
                 "z": 0.5
             },
             "primitiveType": "Cube",
-            "modelPath": "",
             "modelSource": 0,
             "overrideFilePath": "",
             "overrideRemoteURL": "",
@@ -141,8 +167,8 @@
             ]
         },
         {
-            "id": "9a145071-ad44-43b3-812c-7a421d2130bf",
-            "parentId": "b1ced52c-6822-4aef-9bfd-03d08718f1b3",
+            "id": "8ff2506b-26b8-45f3-bc7e-ad5c545bd2d5",
+            "parentId": "2f99b15b-ef13-438b-8cdb-77444abc632f",
             "name": "Sphere",
             "position": {
                 "x": 0.0,
@@ -160,7 +186,6 @@
                 "z": 1.0
             },
             "primitiveType": "Sphere",
-            "modelPath": "",
             "modelSource": 0,
             "overrideFilePath": "",
             "overrideRemoteURL": "",
@@ -193,7 +218,7 @@
     "Description": "LoboForge Test Space",
     "Author": "LoboForge",
     "WebModelLocation": "",
-    "BaseModelPath": "Assets/ExportedGLTF/Blue_glowing_crystal__0515052952_texture",
+    "BaseModelPath": "D:\\Development\\W3D_Git\\W3D\\Assets\\ExportedGLTF",
     "AdultContent": false,
     "ContentRating": 2,
     "PrimaryLanguage": 0

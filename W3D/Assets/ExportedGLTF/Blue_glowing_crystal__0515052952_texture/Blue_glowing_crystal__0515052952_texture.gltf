@@ -1,0 +1,204 @@
+{
+  "asset": {
+    "generator": "UnityGltf 2.16.1, Unity 6000.0.41f1, URP",
+    "version": "2.0"
+  },
+  "extensionsUsed": [
+    "KHR_texture_transform"
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ],
+      "name": "Blue_glowing_crystal__0515052952_texture"
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 14097,
+      "type": "VEC3",
+      "max": [
+        0.0036907398607581854,
+        0.0099999997764825821,
+        0.0034517298918217421
+      ],
+      "min": [
+        -0.0037411099765449762,
+        0.0,
+        -0.0034408797509968281
+      ]
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 14097,
+      "type": "VEC3",
+      "max": [
+        0.999119222164154,
+        0.99982267618179321,
+        0.9999542236328125
+      ],
+      "min": [
+        -0.99993157386779785,
+        -0.9999849796295166,
+        -0.99993443489074707
+      ]
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 14097,
+      "type": "VEC4",
+      "max": [
+        0.9988824725151062,
+        0.99996531009674072,
+        0.99929523468017578,
+        1.0
+      ],
+      "min": [
+        -0.99938356876373291,
+        -0.9995121955871582,
+        -0.99992215633392334,
+        1.0
+      ]
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 14097,
+      "type": "VEC2",
+      "max": [
+        0.99998199939727783,
+        0.99997597932815552
+      ],
+      "min": [
+        5.999999848427251E-05,
+        5.7995319366455078E-05
+      ]
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5123,
+      "count": 14796,
+      "type": "SCALAR",
+      "max": [
+        14096.0
+      ],
+      "min": [
+        0.0
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "Blue_glowing_crystal__0515052952_texture.bin",
+      "byteLength": 706248
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 169164,
+      "byteStride": 12,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 169164,
+      "byteLength": 169164,
+      "byteStride": 12,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 338328,
+      "byteLength": 225552,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 563880,
+      "byteLength": 112776,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 676656,
+      "byteLength": 29592,
+      "target": 34963
+    }
+  ],
+  "images": [
+    {
+      "uri": "texture_0.jpg",
+      "name": "texture_0"
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0,
+          "extensions": {
+            "KHR_texture_transform": {
+              "texCoord": 0
+            }
+          }
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.5
+      },
+      "name": "Material.001"
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
+          },
+          "indices": 4,
+          "material": 0
+        }
+      ],
+      "name": "Blue_glowing_crystal__0515052952_texture"
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0,
+      "rotation": [
+        -3.774895E-08,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "name": "Blue_glowing_crystal__0515052952_texture"
+    }
+  ],
+  "samplers": [
+    {
+      "minFilter": 9987
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0,
+      "name": "texture_0"
+    }
+  ]
+}

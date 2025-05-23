@@ -1,13 +1,13 @@
 ﻿using UnityEditor;
 using UnityEngine;
-
 using System.Collections.Generic;
 using System.IO;
+using UnityGLTF;
 
 public class SpaceExporter : EditorWindow
 {
     private string exportFileName = "Space.json";
-    private ExportedSpaceData SpaceDataComponent;
+    private ExportedSpaceData spaceDataComponent;
 
     [MenuItem("Tools/Export Space to JSON")]
     public static void ShowWindow()
@@ -25,7 +25,7 @@ public class SpaceExporter : EditorWindow
         GUILayout.Label("Export Current Space", EditorStyles.boldLabel);
         exportFileName = EditorGUILayout.TextField("File Name", exportFileName);
 
-        if (SpaceDataComponent == null)
+        if (spaceDataComponent == null)
         {
             EditorGUILayout.HelpBox("No Root object with ExportedSpaceData found in the Space.", MessageType.Warning);
             if (GUILayout.Button("Retry"))
@@ -34,7 +34,7 @@ public class SpaceExporter : EditorWindow
             return;
         }
 
-        SerializedObject so = new SerializedObject(SpaceDataComponent);
+        SerializedObject so = new SerializedObject(spaceDataComponent);
 
         GUILayout.Space(10);
         GUILayout.Label("Space Metadata", EditorStyles.boldLabel);
@@ -61,20 +61,20 @@ public class SpaceExporter : EditorWindow
         var root = GameObject.Find("Root");
         if (root != null)
         {
-            SpaceDataComponent = root.GetComponent<ExportedSpaceData>();
+            spaceDataComponent = root.GetComponent<ExportedSpaceData>();
         }
     }
 
     private void ExportSpaceToJson(string filename)
     {
-        if (SpaceDataComponent == null)
+        if (spaceDataComponent == null)
         {
             Debug.LogError("❌ Root object with ExportedSpaceData not found.");
             return;
         }
 
-        var SpaceData = SpaceDataComponent.Space;
-        SpaceData.objects = new List<ExportedObject>();
+        var space = spaceDataComponent.Space;
+        space.objects = new List<ExportedObject>();
 
         var root = GameObject.Find("Root");
         if (root == null)
@@ -87,10 +87,10 @@ public class SpaceExporter : EditorWindow
 
         foreach (Transform child in root.transform)
         {
-            ExportGameObjectRecursive(child, SpaceData, idLookup, null);
+            ExportGameObjectRecursive(child, space, idLookup, null);
         }
 
-        string json = JsonUtility.ToJson(SpaceData, true);
+        string json = JsonUtility.ToJson(space, true);
         string path = EditorUtility.SaveFilePanel("Export Space JSON", "", filename, "json");
 
         if (!string.IsNullOrEmpty(path))
@@ -102,12 +102,17 @@ public class SpaceExporter : EditorWindow
 
     private void ExportGameObjectRecursive(
         Transform transform,
-        ExportedSpace SpaceData,
+        ExportedSpace space,
         Dictionary<Transform, string> idLookup,
         string parentId)
     {
         GameObject go = transform.gameObject;
         if (go.GetComponent<NoExport>() != null)
+            return;
+
+        //if (IsChildOfGLTFRootWithoutBeingRoot(go.transform))
+        //    return;
+        if (IsAutoInstantiatedGLTFChild(go))
             return;
 
         string id = System.Guid.NewGuid().ToString();
@@ -126,6 +131,7 @@ public class SpaceExporter : EditorWindow
             materials = new List<string>()
         };
 
+        // Identify primitive
         if (go.TryGetComponent<MeshFilter>(out var meshFilter) && meshFilter.sharedMesh != null)
         {
             string meshName = meshFilter.sharedMesh.name.ToLower();
@@ -137,24 +143,7 @@ public class SpaceExporter : EditorWindow
             else if (meshName.Contains("quad")) obj.primitiveType = "Quad";
         }
 
-        var prefabSource = PrefabUtility.GetCorrespondingObjectFromSource(go);
-        if (prefabSource != null)
-        {
-            var path = AssetDatabase.GetAssetPath(prefabSource);
-            if (path.Contains("/Resources/Models/"))
-            {
-                string relative = path.Substring(path.IndexOf("Resources/Models/") + "Resources/Models/".Length);
-                relative = Path.ChangeExtension(relative, null);
-                obj.modelPath = relative;
-                obj.modelSource = ModelSourceType.Resources;
-            }
-            else
-            {
-                obj.modelPath = path;
-                obj.modelSource = ModelSourceType.FileSystem;
-            }
-        }
-
+        // ModelReference overrides
         var modelRef = go.GetComponent<ModelReference>();
         if (modelRef != null)
         {
@@ -162,6 +151,7 @@ public class SpaceExporter : EditorWindow
             obj.overrideRemoteURL = modelRef.overrideRemoteURL;
         }
 
+        // Materials
         var renderer = go.GetComponent<Renderer>();
         if (renderer != null)
         {
@@ -172,6 +162,7 @@ public class SpaceExporter : EditorWindow
             }
         }
 
+        // Rigidbody
         var rb = go.GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -179,23 +170,24 @@ public class SpaceExporter : EditorWindow
             {
                 type = "Rigidbody",
                 properties = new List<ComponentProperty>
-                {
-                    new ComponentProperty { key = "mass", value = rb.mass.ToString() },
-                    new ComponentProperty { key = "drag", value = rb.linearDamping.ToString() },
-                    new ComponentProperty { key = "angularDrag", value = rb.angularDamping.ToString() },
-                    new ComponentProperty { key = "useGravity", value = rb.useGravity.ToString() },
-                    new ComponentProperty { key = "isKinematic", value = rb.isKinematic.ToString() }
-                }
+            {
+                new ComponentProperty { key = "mass", value = rb.mass.ToString() },
+                new ComponentProperty { key = "drag", value = rb.linearDamping.ToString() },
+                new ComponentProperty { key = "angularDrag", value = rb.angularDamping.ToString() },
+                new ComponentProperty { key = "useGravity", value = rb.useGravity.ToString() },
+                new ComponentProperty { key = "isKinematic", value = rb.isKinematic.ToString() }
+            }
             });
         }
 
+        // Collider
         var col = go.GetComponent<Collider>();
         if (col != null)
         {
             var props = new List<ComponentProperty>
-            {
-                new ComponentProperty { key = "isTrigger", value = col.isTrigger.ToString() }
-            };
+        {
+            new ComponentProperty { key = "isTrigger", value = col.isTrigger.ToString() }
+        };
 
             if (col is BoxCollider box)
             {
@@ -222,11 +214,36 @@ public class SpaceExporter : EditorWindow
             obj.components.Add(new ExportedComponent { type = col.GetType().Name, properties = props });
         }
 
-        SpaceData.objects.Add(obj);
+        space.objects.Add(obj);
 
-        foreach (Transform child in transform)
+        // ✅ Recurse only if this object is NOT a GLTF root
+        if (go.GetComponent<InstantiatedGLTFObject>() == null)
         {
-            ExportGameObjectRecursive(child, SpaceData, idLookup, id);
+            foreach (Transform child in transform)
+            {
+                ExportGameObjectRecursive(child, space, idLookup, id);
+            }
         }
     }
+    private bool IsAutoInstantiatedGLTFChild(GameObject go)
+    {
+        // This object was not explicitly imported, it's just a child of a GLTF root
+        return go.transform.parent != null &&
+               go.transform.parent.GetComponent<InstantiatedGLTFObject>() != null &&
+               go.GetComponent<InstantiatedGLTFObject>() == null;
+    }
+    private bool IsChildOfGLTFRootWithoutBeingRoot(Transform t)
+    {
+        Transform current = t.parent;
+        while (current != null)
+        {
+            if (current.GetComponent<InstantiatedGLTFObject>() != null)
+            {
+                return t.GetComponent<InstantiatedGLTFObject>() == null;
+            }
+            current = current.parent;
+        }
+        return false;
+    }
+
 }

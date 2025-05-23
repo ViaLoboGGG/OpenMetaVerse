@@ -1,0 +1,223 @@
+{
+    "objects": [
+        {
+            "id": "f9ba24d8-acfb-4349-aab6-d4027bdb6040",
+            "parentId": "",
+            "name": "BlueCrystal",
+            "position": {
+                "x": 4.230000019073486,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": -0.000004325710960983997,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "c803b1c3-a4e9-4b03-a612-bbd5120d5da5",
+            "parentId": "",
+            "name": "Plane",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 2.0,
+                "y": 2.0,
+                "z": 2.0
+            },
+            "primitiveType": "Plane",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "RuntimeDefaultMaterial"
+            ],
+            "scripts": [],
+            "components": [
+                {
+                    "type": "MeshCollider",
+                    "properties": [
+                        {
+                            "key": "isTrigger",
+                            "value": "False"
+                        },
+                        {
+                            "key": "convex",
+                            "value": "False"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "07656af1-0453-453c-9321-1b7637553fdb",
+            "parentId": "c803b1c3-a4e9-4b03-a612-bbd5120d5da5",
+            "name": "Cube (1)",
+            "position": {
+                "x": 0.0,
+                "y": 0.273830771446228,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 0.5,
+                "z": 1.0
+            },
+            "primitiveType": "Cube",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "BasicGreen"
+            ],
+            "scripts": [],
+            "components": [
+                {
+                    "type": "BoxCollider",
+                    "properties": [
+                        {
+                            "key": "isTrigger",
+                            "value": "False"
+                        },
+                        {
+                            "key": "center",
+                            "value": "(0.000, 0.000, 0.000)"
+                        },
+                        {
+                            "key": "size",
+                            "value": "(1.000, 1.000, 1.000)"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "3eca9058-fa2c-4d24-bdc6-e7a5825fdfdc",
+            "parentId": "07656af1-0453-453c-9321-1b7637553fdb",
+            "name": "Cube",
+            "position": {
+                "x": 0.0,
+                "y": 0.9700000286102295,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.5,
+                "y": 1.0,
+                "z": 0.5
+            },
+            "primitiveType": "Cube",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "BasicBlue"
+            ],
+            "scripts": [],
+            "components": [
+                {
+                    "type": "BoxCollider",
+                    "properties": [
+                        {
+                            "key": "isTrigger",
+                            "value": "False"
+                        },
+                        {
+                            "key": "center",
+                            "value": "(0.000, 0.000, 0.000)"
+                        },
+                        {
+                            "key": "size",
+                            "value": "(1.000, 1.000, 1.000)"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "e6c0884e-0302-4f72-8637-fb5c6a602393",
+            "parentId": "3eca9058-fa2c-4d24-bdc6-e7a5825fdfdc",
+            "name": "Sphere",
+            "position": {
+                "x": 0.0,
+                "y": 1.0323383808135987,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "primitiveType": "Sphere",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "BasicBlack"
+            ],
+            "scripts": [],
+            "components": [
+                {
+                    "type": "SphereCollider",
+                    "properties": [
+                        {
+                            "key": "isTrigger",
+                            "value": "False"
+                        },
+                        {
+                            "key": "center",
+                            "value": "(0.000, 0.000, 0.000)"
+                        },
+                        {
+                            "key": "radius",
+                            "value": "0.5"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "Name": "Test Space",
+    "Description": "LoboForge Test Space",
+    "Author": "LoboForge",
+    "WebModelLocation": "",
+    "BaseModelPath": "D:\\Development\\W3D_Git\\W3D\\Assets\\ExportedGLTF",
+    "AdultContent": false,
+    "ContentRating": 2,
+    "PrimaryLanguage": 0
+}
