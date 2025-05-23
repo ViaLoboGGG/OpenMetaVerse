@@ -58,16 +58,25 @@ public class FbxToGltfExporter : EditorWindow
 
         GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(fbxPrefab);
 
-        var context = new ExportContext
+        // 🔧 Rename shared materials to avoid collisions (e.g., "Material.001")
+        var renderers = instance.GetComponentsInChildren<Renderer>();
+        foreach (var renderer in renderers)
         {
-        };
+            var mats = renderer.sharedMaterials;
+            for (int i = 0; i < mats.Length; i++)
+            {
+                if (mats[i] != null)
+                {
+                    mats[i].name = $"{fbxPrefab.name}_Mat_{i}";
+                }
+            }
+        }
 
-        var exporter = new GLTFSceneExporter(
-            new[] { instance.transform }, context
-        );
+        var context = new ExportContext();
 
+        var exporter = new GLTFSceneExporter(new[] { instance.transform }, context);
         exporter.SaveGLTFandBin(outputPath, Path.GetFileName(outputPath));
+
         DestroyImmediate(instance);
     }
-
 }

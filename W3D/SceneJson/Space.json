@@ -1,7 +1,7 @@
 {
     "objects": [
         {
-            "id": "f9ba24d8-acfb-4349-aab6-d4027bdb6040",
+            "id": "153da00d-7c9a-45d3-92d3-9c5ec9659d45",
             "parentId": "",
             "name": "BlueCrystal",
             "position": {
@@ -28,7 +28,7 @@
             "components": []
         },
         {
-            "id": "c803b1c3-a4e9-4b03-a612-bbd5120d5da5",
+            "id": "a82828bd-7c71-425c-a7f9-110e0968e4dc",
             "parentId": "",
             "name": "Plane",
             "position": {
@@ -71,8 +71,8 @@
             ]
         },
         {
-            "id": "07656af1-0453-453c-9321-1b7637553fdb",
-            "parentId": "c803b1c3-a4e9-4b03-a612-bbd5120d5da5",
+            "id": "553ec5b4-60af-47b6-bd2c-eeb49a729e42",
+            "parentId": "a82828bd-7c71-425c-a7f9-110e0968e4dc",
             "name": "Cube (1)",
             "position": {
                 "x": 0.0,
@@ -118,8 +118,8 @@
             ]
         },
         {
-            "id": "3eca9058-fa2c-4d24-bdc6-e7a5825fdfdc",
-            "parentId": "07656af1-0453-453c-9321-1b7637553fdb",
+            "id": "65353f9f-9ba5-41b9-8a3b-64776e82c6ab",
+            "parentId": "553ec5b4-60af-47b6-bd2c-eeb49a729e42",
             "name": "Cube",
             "position": {
                 "x": 0.0,
@@ -165,8 +165,8 @@
             ]
         },
         {
-            "id": "e6c0884e-0302-4f72-8637-fb5c6a602393",
-            "parentId": "3eca9058-fa2c-4d24-bdc6-e7a5825fdfdc",
+            "id": "214fe1e5-ef22-4a9d-a430-d114115cc5a2",
+            "parentId": "65353f9f-9ba5-41b9-8a3b-64776e82c6ab",
             "name": "Sphere",
             "position": {
                 "x": 0.0,
