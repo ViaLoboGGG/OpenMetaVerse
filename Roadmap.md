@@ -25,7 +25,15 @@ Welcome to the core roadmap for the **W3D Project** — a decentralized, user-cr
 - [ ] Implement WebSocket-based multiplayer server (C# or Rust)
 - [ ] Support movement sync, chat, and player presence
 - [ ] Add simple authoritative object ownership model
-- [ ] Explore server discovery / user-hosted instances
+- [ ] Implement client connection flow: connect to server → receive `space.json` → enter world
+- [ ] Enable client fallback: preload `space.json` first, then sync with server
+- [ ] Support two server modes:
+  - Dedicated: hosts one or more predefined spaces
+  - Standby: loads spaces dynamically on demand
+- [ ] Enable server to advertise to central registry (IP, status, hosted spaces)
+- [ ] Allow server to fetch and load any space via space ID or remote URL
+- [ ] Define protocol for server-to-client space transfer (binary or JSON)
+- [ ] Explore user-hosted discovery via registry, broadcast, or relays
 
 ---
 
