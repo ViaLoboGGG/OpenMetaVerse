@@ -4,28 +4,29 @@ using System.IO;
 using System.Collections.Generic;
 using System;
 
-public class SceneImporter : EditorWindow
+public class SpaceImporter : EditorWindow
 {
     private string jsonPath;
-    private ExportedScene previewScene;
-    [MenuItem("Tools/Import Scene from JSON")]
+    private ExportedSpace previewSpace;
+
+    [MenuItem("Tools/Import Space from JSON")]
     public static void ShowWindow()
     {
-        GetWindow<SceneImporter>("Scene Importer");
+        GetWindow<SpaceImporter>("Space Importer");
     }
 
     private void OnGUI()
     {
-        GUILayout.Label("Import Scene JSON", EditorStyles.boldLabel);
+        GUILayout.Label("Import Space JSON", EditorStyles.boldLabel);
 
-        if (GUILayout.Button("Select Scene JSON"))
+        if (GUILayout.Button("Select Space JSON"))
         {
-            string path = EditorUtility.OpenFilePanel("Import Scene JSON", "", "json");
+            string path = EditorUtility.OpenFilePanel("Import Space JSON", "", "json");
             if (!string.IsNullOrEmpty(path))
             {
                 jsonPath = path;
                 string json = File.ReadAllText(jsonPath);
-                previewScene = JsonUtility.FromJson<ExportedScene>(json);
+                previewSpace = JsonUtility.FromJson<ExportedSpace>(json);
             }
         }
 
@@ -34,31 +35,31 @@ public class SceneImporter : EditorWindow
             GUILayout.Space(10);
             GUILayout.Label($"Selected: {Path.GetFileName(jsonPath)}");
 
-            if (previewScene != null)
+            if (previewSpace != null)
             {
                 GUILayout.Space(10);
-                EditorGUILayout.LabelField("Scene Metadata", EditorStyles.boldLabel);
-                EditorGUILayout.LabelField("Name", previewScene.Name);
-                EditorGUILayout.LabelField("Author", previewScene.Author);
-                EditorGUILayout.LabelField("Description", previewScene.Description, EditorStyles.wordWrappedLabel);
-                EditorGUILayout.LabelField("Content Rating", previewScene.ContentRating.ToString());
-                EditorGUILayout.LabelField("Language", previewScene.PrimaryLanguage.ToString());
-                EditorGUILayout.Toggle("Adult Content", previewScene.AdultContent);
+                EditorGUILayout.LabelField("Space Metadata", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField("Name", previewSpace.Name);
+                EditorGUILayout.LabelField("Author", previewSpace.Author);
+                EditorGUILayout.LabelField("Description", previewSpace.Description, EditorStyles.wordWrappedLabel);
+                EditorGUILayout.LabelField("Content Rating", previewSpace.ContentRating.ToString());
+                EditorGUILayout.LabelField("Language", previewSpace.PrimaryLanguage.ToString());
+                EditorGUILayout.Toggle("Adult Content", previewSpace.AdultContent);
             }
 
             GUILayout.Space(10);
             if (GUILayout.Button("Import"))
             {
-                ImportScene(jsonPath);
+                ImportSpace(jsonPath);
             }
         }
     }
 
-    private void ImportScene(string path)
+    private void ImportSpace(string path)
     {
         Dictionary<string, GameObject> createdObjects = new();
         string json = File.ReadAllText(path);
-        ExportedScene scene = JsonUtility.FromJson<ExportedScene>(json);
+        ExportedSpace Space = JsonUtility.FromJson<ExportedSpace>(json);
 
         // 🔄 Remove previous "Root" if it exists
         var existingRoot = GameObject.Find("Root");
@@ -67,18 +68,32 @@ public class SceneImporter : EditorWindow
 
         // 📦 Create new Root object
         GameObject root = new GameObject("Root");
-        var holder = root.AddComponent<ExportedSceneData>();
-        holder.scene = scene;
+        var holder = root.AddComponent<ExportedSpaceData>();
+        holder.Space = Space;
 
-        string baseModelPath = scene.BaseModelPath ?? "";
+        string baseModelPath = Space.BaseModelPath ?? "";
 
-        // 🧱 Instantiate all scene objects
-        foreach (var obj in scene.objects)
+        // 🧱 Instantiate all Space objects
+        foreach (var obj in Space.objects)
         {
             GameObject go = null;
 
-            // Load model by modelPath and source
-            if (!string.IsNullOrEmpty(obj.modelPath))
+            // 1️⃣ Override: Specific File Path
+            if (!string.IsNullOrEmpty(obj.overrideFilePath) && File.Exists(obj.overrideFilePath))
+            {
+                go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                go.name = $"[OVERRIDE FILE] {Path.GetFileName(obj.overrideFilePath)}";
+                Debug.Log($"📁 Using overrideFilePath: {obj.overrideFilePath}");
+            }
+            // 2️⃣ Override: Remote URL
+            else if (!string.IsNullOrEmpty(obj.overrideRemoteURL) && Uri.IsWellFormedUriString(obj.overrideRemoteURL, UriKind.Absolute))
+            {
+                go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                go.name = $"[OVERRIDE URL] {Path.GetFileName(obj.overrideRemoteURL)}";
+                Debug.Log($"🌐 Using overrideRemoteURL: {obj.overrideRemoteURL}");
+            }
+            // 3️⃣ Fallback to modelPath + modelSource
+            else if (!string.IsNullOrEmpty(obj.modelPath))
             {
                 switch (obj.modelSource)
                 {
@@ -93,37 +108,38 @@ public class SceneImporter : EditorWindow
                         break;
 
                     case ModelSourceType.FileSystem:
-                        string fullPath = Path.Combine(baseModelPath, obj.modelPath);
+                        string fullPath = Path.Combine(Space.BaseModelPath ?? "", obj.modelPath);
                         if (File.Exists(fullPath))
                         {
-                            // You would plug in an actual model importer (FBX, GLTF, etc.)
-                            go = GameObject.CreatePrimitive(PrimitiveType.Cube); // placeholder
+                            go = GameObject.CreatePrimitive(PrimitiveType.Cube);
                             go.name = $"[FILE] {Path.GetFileName(obj.modelPath)}";
                             Debug.Log($"🟡 Placeholder for file: {fullPath}");
                         }
                         break;
 
                     case ModelSourceType.RemoteURL:
-                        if (Uri.IsWellFormedUriString(obj.modelPath, UriKind.Absolute))
+                        string remoteURL = $"{Space.WebModelLocation}/{obj.modelPath}".Replace("\\", "/");
+                        if (Uri.IsWellFormedUriString(remoteURL, UriKind.Absolute))
                         {
-                            go = GameObject.CreatePrimitive(PrimitiveType.Cube); // placeholder
+                            go = GameObject.CreatePrimitive(PrimitiveType.Cube);
                             go.name = $"[URL] {Path.GetFileName(obj.modelPath)}";
-                            Debug.Log($"🌐 Placeholder for URL: {obj.modelPath}");
+                            Debug.Log($"🌐 Placeholder for URL: {remoteURL}");
                         }
                         break;
                 }
             }
 
-            // Fallback to primitive
+            // 4️⃣ Fallback to primitive type
             if (go == null && !string.IsNullOrEmpty(obj.primitiveType))
             {
                 if (Enum.TryParse(obj.primitiveType, out PrimitiveType primitive))
                 {
                     go = GameObject.CreatePrimitive(primitive);
+                    Debug.Log($"🧱 Created primitive: {primitive}");
                 }
             }
 
-            // Last fallback
+            // 5️⃣ Final fallback
             if (go == null)
             {
                 go = new GameObject(obj.name);
@@ -176,8 +192,8 @@ public class SceneImporter : EditorWindow
             go.transform.SetParent(root.transform, false);
         }
 
-        // 🔗 Reconstruct hierarchy
-        foreach (var obj in scene.objects)
+        // 🔗 Rebuild hierarchy
+        foreach (var obj in Space.objects)
         {
             if (!string.IsNullOrEmpty(obj.parentId) &&
                 createdObjects.TryGetValue(obj.id, out GameObject child) &&
@@ -187,7 +203,7 @@ public class SceneImporter : EditorWindow
             }
         }
 
-        Debug.Log("✅ Scene imported successfully.");
+        Debug.Log("✅ Space imported successfully.");
     }
 
     private void AddComponentFromData(GameObject go, ExportedComponent comp)

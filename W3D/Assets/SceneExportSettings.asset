@@ -16,7 +16,7 @@ MonoBehaviour:
   Description: test scene with altar
   Author: LoboForge
   WebModelLocation: https://www.loboforge.com/Assets/
-  BaseModelPath: Resources/Models
+  BaseModelPath: Assets/ExportedGLTF/Blue_glowing_crystal__0515052952_texture
   AdultContent: 0
   ContentRating: 2
   PrimaryLanguage: 0

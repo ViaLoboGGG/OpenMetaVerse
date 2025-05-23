@@ -1,94 +1,108 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.IO;
+
 using System.Collections.Generic;
+using System.IO;
 
-public class SceneExporter : EditorWindow
+public class SpaceExporter : EditorWindow
 {
-    private string exportFileName = "scene.json";
-    private SceneExportSettings settings;
+    private string exportFileName = "Space.json";
+    private ExportedSpaceData SpaceDataComponent;
 
-    [MenuItem("Tools/Export Scene to JSON")]
+    [MenuItem("Tools/Export Space to JSON")]
     public static void ShowWindow()
     {
-        GetWindow<SceneExporter>("Scene Exporter");
+        GetWindow<SpaceExporter>("Space Exporter");
     }
 
     private void OnEnable()
     {
-        settings = SceneExportSettingsWindow.GetSettings();
+        TryFindSpaceData();
     }
 
     private void OnGUI()
     {
-        GUILayout.Label("Export Current Scene", EditorStyles.boldLabel);
-
-        if (settings != null)
-        {
-            EditorGUILayout.HelpBox("Settings loaded from SceneExportSettings.asset", MessageType.Info);
-            EditorGUILayout.LabelField("Scene Name", settings.Name);
-            EditorGUILayout.LabelField("Author", settings.Author);
-            EditorGUILayout.LabelField("Remote Model Base URL", settings.WebModelLocation);
-            EditorGUILayout.LabelField("Local Model Path", settings.BaseModelPath);
-        }
-        else
-        {
-            EditorGUILayout.HelpBox("No SceneExportSettings.asset found. Defaults will be used.", MessageType.Warning);
-        }
-
+        GUILayout.Label("Export Current Space", EditorStyles.boldLabel);
         exportFileName = EditorGUILayout.TextField("File Name", exportFileName);
 
-        if (GUILayout.Button("Export Scene"))
+        if (SpaceDataComponent == null)
         {
-            ExportSceneToJson(exportFileName);
+            EditorGUILayout.HelpBox("No Root object with ExportedSpaceData found in the Space.", MessageType.Warning);
+            if (GUILayout.Button("Retry"))
+                TryFindSpaceData();
+
+            return;
+        }
+
+        SerializedObject so = new SerializedObject(SpaceDataComponent);
+
+        GUILayout.Space(10);
+        GUILayout.Label("Space Metadata", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(so.FindProperty("Space.Name"));
+        EditorGUILayout.PropertyField(so.FindProperty("Space.Author"));
+        EditorGUILayout.PropertyField(so.FindProperty("Space.Description"));
+        EditorGUILayout.PropertyField(so.FindProperty("Space.WebModelLocation"));
+        EditorGUILayout.PropertyField(so.FindProperty("Space.BaseModelPath"));
+        EditorGUILayout.PropertyField(so.FindProperty("Space.AdultContent"));
+        EditorGUILayout.PropertyField(so.FindProperty("Space.ContentRating"));
+        EditorGUILayout.PropertyField(so.FindProperty("Space.PrimaryLanguage"));
+
+        so.ApplyModifiedProperties();
+
+        GUILayout.Space(10);
+        if (GUILayout.Button("Export Space"))
+        {
+            ExportSpaceToJson(exportFileName);
         }
     }
 
-    private void ExportSceneToJson(string filename)
+    private void TryFindSpaceData()
     {
-        if (string.IsNullOrWhiteSpace(filename))
+        var root = GameObject.Find("Root");
+        if (root != null)
         {
-            Debug.LogError("Invalid export filename.");
+            SpaceDataComponent = root.GetComponent<ExportedSpaceData>();
+        }
+    }
+
+    private void ExportSpaceToJson(string filename)
+    {
+        if (SpaceDataComponent == null)
+        {
+            Debug.LogError("❌ Root object with ExportedSpaceData not found.");
             return;
         }
 
-        GameObject root = GameObject.Find("Root");
+        var SpaceData = SpaceDataComponent.Space;
+        SpaceData.objects = new List<ExportedObject>();
+
+        var root = GameObject.Find("Root");
         if (root == null)
         {
-            Debug.LogError("Root GameObject not found. Aborting export.");
+            Debug.LogError("❌ Root GameObject not found.");
             return;
         }
-
-        var sceneData = new ExportedScene
-        {
-            objects = new List<ExportedObject>(),
-            BaseModelPath = settings != null ? settings.BaseModelPath : "Resources/Models",
-            Name = settings != null ? settings.Name : "UnnamedScene",
-            Author = settings != null ? settings.Author : "UnknownAuthor",
-            WebModelLocation = settings != null ? settings.WebModelLocation : ""
-        };
 
         Dictionary<Transform, string> idLookup = new();
 
         foreach (Transform child in root.transform)
         {
-            ExportGameObjectRecursive(child, sceneData, idLookup, null);
+            ExportGameObjectRecursive(child, SpaceData, idLookup, null);
         }
 
-        string json = JsonUtility.ToJson(sceneData, true);
-        string path = EditorUtility.SaveFilePanel("Export Scene JSON", "", filename, "json");
+        string json = JsonUtility.ToJson(SpaceData, true);
+        string path = EditorUtility.SaveFilePanel("Export Space JSON", "", filename, "json");
 
         if (!string.IsNullOrEmpty(path))
         {
             File.WriteAllText(path, json);
-            Debug.Log($"✅ Scene exported to {path}");
+            Debug.Log($"✅ Space exported to {path}");
         }
     }
 
     private void ExportGameObjectRecursive(
         Transform transform,
-        ExportedScene sceneData,
+        ExportedSpace SpaceData,
         Dictionary<Transform, string> idLookup,
         string parentId)
     {
@@ -112,7 +126,6 @@ public class SceneExporter : EditorWindow
             materials = new List<string>()
         };
 
-        // Primitive type
         if (go.TryGetComponent<MeshFilter>(out var meshFilter) && meshFilter.sharedMesh != null)
         {
             string meshName = meshFilter.sharedMesh.name.ToLower();
@@ -124,7 +137,6 @@ public class SceneExporter : EditorWindow
             else if (meshName.Contains("quad")) obj.primitiveType = "Quad";
         }
 
-        // Model path
         var prefabSource = PrefabUtility.GetCorrespondingObjectFromSource(go);
         if (prefabSource != null)
         {
@@ -143,7 +155,13 @@ public class SceneExporter : EditorWindow
             }
         }
 
-        // Materials
+        var modelRef = go.GetComponent<ModelReference>();
+        if (modelRef != null)
+        {
+            obj.overrideFilePath = modelRef.overrideFilePath;
+            obj.overrideRemoteURL = modelRef.overrideRemoteURL;
+        }
+
         var renderer = go.GetComponent<Renderer>();
         if (renderer != null)
         {
@@ -154,7 +172,6 @@ public class SceneExporter : EditorWindow
             }
         }
 
-        // Rigidbody
         var rb = go.GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -172,7 +189,6 @@ public class SceneExporter : EditorWindow
             });
         }
 
-        // Collider
         var col = go.GetComponent<Collider>();
         if (col != null)
         {
@@ -206,11 +222,11 @@ public class SceneExporter : EditorWindow
             obj.components.Add(new ExportedComponent { type = col.GetType().Name, properties = props });
         }
 
-        sceneData.objects.Add(obj);
+        SpaceData.objects.Add(obj);
 
         foreach (Transform child in transform)
         {
-            ExportGameObjectRecursive(child, sceneData, idLookup, id);
+            ExportGameObjectRecursive(child, SpaceData, idLookup, id);
         }
     }
 }

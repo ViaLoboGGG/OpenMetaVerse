@@ -1,10 +1,10 @@
-﻿// Models/ExportedScene.cs
+﻿// Models/ExportedSpace.cs
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class ExportedScene
+public class ExportedSpace
 {
     public List<ExportedObject> objects = new();
 
@@ -35,13 +35,20 @@ public class ExportedObject
     public Vector3 position;
     public Vector3 rotation;
     public Vector3 scale;
-    public string primitiveType; // null for models
-    public string modelPath;     // path to FBX or prefab
+
+    public string primitiveType;   // null for models
+    public string modelPath;       // relative path or filename (e.g. "chair1.glb")
     public ModelSourceType modelSource = ModelSourceType.Resources;
+
+    // Optional overrides (optional: if null, use Space defaults)
+    public string overrideFilePath;    // "D:/OtherModels/chair1.glb"
+    public string overrideRemoteURL;   // "https://cdn.someone.com/free/chair1.glb"
+
     public List<string> materials;
     public List<string> scripts;
     public List<ExportedComponent> components;
 }
+
 
 [System.Serializable]
 public class ExportedComponent

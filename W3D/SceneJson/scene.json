@@ -1,7 +1,7 @@
 {
     "objects": [
         {
-            "id": "7153e83c-b8ee-43a1-951f-c372551fa645",
+            "id": "94d9373a-04ae-4ec3-a269-ab1398ae8afc",
             "parentId": "",
             "name": "Plane",
             "position": {
@@ -22,6 +22,8 @@
             "primitiveType": "Plane",
             "modelPath": "",
             "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
             "materials": [
                 "RuntimeDefaultMaterial"
             ],
@@ -43,8 +45,8 @@
             ]
         },
         {
-            "id": "41496b98-7bb3-4c90-afcd-d22e5312e36b",
-            "parentId": "7153e83c-b8ee-43a1-951f-c372551fa645",
+            "id": "889a5dd8-b3ad-4f41-8878-96f9d7e5c70b",
+            "parentId": "94d9373a-04ae-4ec3-a269-ab1398ae8afc",
             "name": "Cube (1)",
             "position": {
                 "x": 0.0,
@@ -64,6 +66,8 @@
             "primitiveType": "Cube",
             "modelPath": "",
             "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
             "materials": [
                 "BasicGreen"
             ],
@@ -89,8 +93,8 @@
             ]
         },
         {
-            "id": "514edef6-e1d2-416c-8111-ad4f2e6ee35d",
-            "parentId": "41496b98-7bb3-4c90-afcd-d22e5312e36b",
+            "id": "b1ced52c-6822-4aef-9bfd-03d08718f1b3",
+            "parentId": "889a5dd8-b3ad-4f41-8878-96f9d7e5c70b",
             "name": "Cube",
             "position": {
                 "x": 0.0,
@@ -110,6 +114,8 @@
             "primitiveType": "Cube",
             "modelPath": "",
             "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
             "materials": [
                 "BasicBlue"
             ],
@@ -135,8 +141,8 @@
             ]
         },
         {
-            "id": "2451d01f-1326-42e9-a9ac-53360d8d6562",
-            "parentId": "514edef6-e1d2-416c-8111-ad4f2e6ee35d",
+            "id": "9a145071-ad44-43b3-812c-7a421d2130bf",
+            "parentId": "b1ced52c-6822-4aef-9bfd-03d08718f1b3",
             "name": "Sphere",
             "position": {
                 "x": 0.0,
@@ -156,6 +162,8 @@
             "primitiveType": "Sphere",
             "modelPath": "",
             "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
             "materials": [
                 "BasicBlack"
             ],
@@ -179,41 +187,13 @@
                     ]
                 }
             ]
-        },
-        {
-            "id": "fce28994-9c8d-49ea-99de-b3736b8729f3",
-            "parentId": "",
-            "name": "Blue_glowing_crystal__0515052952_texture",
-            "position": {
-                "x": 0.0,
-                "y": 6.670000076293945,
-                "z": 0.0
-            },
-            "rotation": {
-                "x": -0.000004325710960983997,
-                "y": 0.0,
-                "z": 0.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0,
-                "z": 100.0
-            },
-            "primitiveType": "",
-            "modelPath": "",
-            "modelSource": 0,
-            "materials": [
-                "Material.001"
-            ],
-            "scripts": [],
-            "components": []
         }
     ],
-    "Name": "Test",
-    "Description": "",
+    "Name": "Test Space",
+    "Description": "LoboForge Test Space",
     "Author": "LoboForge",
-    "WebModelLocation": "https://www.loboforge.com/Assets/",
-    "BaseModelPath": "Resources/Models",
+    "WebModelLocation": "",
+    "BaseModelPath": "Assets/ExportedGLTF/Blue_glowing_crystal__0515052952_texture",
     "AdultContent": false,
     "ContentRating": 2,
     "PrimaryLanguage": 0
