@@ -1,0 +1,1157 @@
+{
+    "objects": [
+        {
+            "id": "06342218-1061-4f5b-9e83-71cb29471050",
+            "parentId": "",
+            "name": "Plane",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "Plane",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "CrackedGround"
+            ],
+            "scripts": [],
+            "components": [
+                {
+                    "type": "MeshCollider",
+                    "properties": [
+                        {
+                            "key": "isTrigger",
+                            "value": "False"
+                        },
+                        {
+                            "key": "convex",
+                            "value": "False"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "7f708b76-245c-4756-a830-a0ee4ad82e9c",
+            "parentId": "",
+            "name": "MysticPortal",
+            "position": {
+                "x": -0.447052001953125,
+                "y": 2.7200000286102297,
+                "z": -0.40387821197509768
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 4.0,
+                "y": 4.0,
+                "z": 4.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "PBRGraph"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "1eb0f887-152b-44a5-b7d0-71a91771c792",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004637_texture",
+            "position": {
+                "x": -5.105791091918945,
+                "y": 0.0,
+                "z": -0.7727274894714356
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 6.0,
+                "y": 6.0,
+                "z": 6.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "1c01241c-7d17-4c85-b806-e9aa75379c10",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004637_texture (4)",
+            "position": {
+                "x": 5.130000114440918,
+                "y": 0.0,
+                "z": -0.9900000095367432
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 6.0,
+                "y": 6.0,
+                "z": 6.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "a8f29de6-2d6e-4893-b34a-b91808ec97e9",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004637_texture (2)",
+            "position": {
+                "x": -4.976540565490723,
+                "y": 0.0,
+                "z": -7.1498003005981449
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 172.47036743164063,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 6.0,
+                "y": 6.0,
+                "z": 6.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "9779529a-b3a4-4fd2-bb52-b235743b0f06",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004637_texture (5)",
+            "position": {
+                "x": 5.259250640869141,
+                "y": 0.0,
+                "z": -7.367073059082031
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 172.47036743164063,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 6.0,
+                "y": 6.0,
+                "z": 6.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "3553a59a-d3bf-4628-a079-c1e1835ca52f",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004637_texture (1)",
+            "position": {
+                "x": -5.1435418128967289,
+                "y": 0.0,
+                "z": -2.7608225345611574
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 256.90594482421877,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "65537e87-30c3-44f9-a495-0ab8fb724bfc",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004637_texture (6)",
+            "position": {
+                "x": 5.092249393463135,
+                "y": 0.0,
+                "z": -2.978095054626465
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 256.90594482421877,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "cb57e19a-60b8-4e4a-b002-68d33a3dc0a7",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004637_texture (3)",
+            "position": {
+                "x": -5.19963264465332,
+                "y": 0.0,
+                "z": -5.173897743225098
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 69.37629699707031,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "7c795633-9d91-4b13-aaa1-23ec58f2949b",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004637_texture (7)",
+            "position": {
+                "x": 5.036158561706543,
+                "y": 0.0,
+                "z": -5.391170501708984
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 69.37629699707031,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "5c61f9ad-f33f-4baf-a23e-f886a2b1a19f",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004727_texture",
+            "position": {
+                "x": -1.1100000143051148,
+                "y": 0.0,
+                "z": 4.360000133514404
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "14517597-1107-4ae3-b302-fd1dc551c9fe",
+            "parentId": "",
+            "name": "Ancient_ruins_from_a__0524003932_texture",
+            "position": {
+                "x": -17.190000534057618,
+                "y": -0.20999999344348908,
+                "z": -18.65999984741211
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 8.0,
+                "y": 8.0,
+                "z": 8.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "f19c2410-01b8-4e6b-af34-14ab465b2f7d",
+            "parentId": "",
+            "name": "Ancient_ruins_from_a__0524003919_texture",
+            "position": {
+                "x": -30.239999771118165,
+                "y": -0.7799999713897705,
+                "z": -18.43000030517578
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "d9e2341f-16a3-49cb-833f-ccf34ddb2966",
+            "parentId": "",
+            "name": "broken_ancient_ruins__0524004245_texture",
+            "position": {
+                "x": -39.38999938964844,
+                "y": -0.09000000357627869,
+                "z": -5.460000038146973
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 87.56777954101563,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "93b0bc90-7942-4042-b47b-b54d093c58e5",
+            "parentId": "",
+            "name": "Ancient_ruins_from_a__0524004002_texture",
+            "position": {
+                "x": -37.130001068115237,
+                "y": 0.0,
+                "z": 8.289999961853028
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 89.53144073486328,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "feb75f2c-c374-40fc-b4ab-faf21c2ec2f9",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524005143_texture",
+            "position": {
+                "x": -19.700000762939454,
+                "y": 0.0,
+                "z": 30.299999237060548
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "e0144687-4eff-4004-bff0-a54b63852b79",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524005130_texture",
+            "position": {
+                "x": -8.619999885559082,
+                "y": 0.0,
+                "z": 19.84000015258789
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "514f9f74-d2f5-40a2-8caf-04ba36f93190",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524005117_texture",
+            "position": {
+                "x": 3.299999952316284,
+                "y": 0.0,
+                "z": 34.29999923706055
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "06dbab81-a16c-4151-823c-b21c9d3620fe",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524005100_texture",
+            "position": {
+                "x": 26.56999969482422,
+                "y": 0.0,
+                "z": -12.40999984741211
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "17727c23-3ca4-4389-b8f9-fd2ebe683e9e",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004943_texture",
+            "position": {
+                "x": 15.319999694824219,
+                "y": 0.0,
+                "z": -13.390000343322754
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "877ca7ad-2d45-4499-afd0-6d8d1287af09",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004927_texture",
+            "position": {
+                "x": 27.110000610351564,
+                "y": 0.0,
+                "z": 0.6600000262260437
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "411261a6-b998-4e74-a460-7a53c1d63be4",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004915_texture",
+            "position": {
+                "x": 29.309999465942384,
+                "y": -0.28999999165534975,
+                "z": 15.187692642211914
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "eed45316-7e51-49b5-8174-f0bb702c573c",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004845_texture",
+            "position": {
+                "x": 10.880000114440918,
+                "y": 0.0,
+                "z": 28.850000381469728
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "f8de1a5e-4c7c-49c6-be7b-bee588e599e6",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004727_texture (1)",
+            "position": {
+                "x": 17.959999084472658,
+                "y": 0.0,
+                "z": 0.3700000047683716
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "6a69576a-8b11-41fa-8287-ee7c05885035",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004714_texture",
+            "position": {
+                "x": 14.0,
+                "y": 0.0,
+                "z": 15.187692642211914
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "957956da-8017-4786-945d-63f723747f0f",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004702_texture",
+            "position": {
+                "x": 20.549999237060548,
+                "y": 0.0,
+                "z": 11.180000305175782
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "b4e786a6-50a2-4e77-9f4f-7d9a83be8739",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004649_texture",
+            "position": {
+                "x": -17.860000610351564,
+                "y": -0.38999998569488528,
+                "z": 6.099999904632568
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "e4a95adf-3af8-4a78-b18e-f70a8354c5fd",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004637_texture (8)",
+            "position": {
+                "x": 12.260000228881836,
+                "y": 0.0,
+                "z": -6.650000095367432
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "74b61ef2-e283-401d-9b7d-d8632ebd76ea",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004624_texture",
+            "position": {
+                "x": -33.310001373291019,
+                "y": 0.0,
+                "z": 25.31999969482422
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "f0b5f84b-56f8-4d80-8b6a-b0d71dbd835d",
+            "parentId": "",
+            "name": "an_exotic_oddly_glowi_0524004609_texture",
+            "position": {
+                "x": 27.979999542236329,
+                "y": 0.0,
+                "z": -23.399999618530275
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "Material_0"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "f82b208a-c11c-4755-9a11-7c389e724936",
+            "parentId": "",
+            "name": "ancient_cobblestone_r_0524010728_texture",
+            "position": {
+                "x": -9.180000305175782,
+                "y": 0.03999999910593033,
+                "z": -4.788159370422363
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "PBRGraph"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "032d99dc-a8b4-4449-bae1-020eb3f82540",
+            "parentId": "",
+            "name": "ancient_cobblestone_r_0524010728_texture (6)",
+            "position": {
+                "x": -9.180000305175782,
+                "y": 0.03999999910593033,
+                "z": -15.09000015258789
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "PBRGraph"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "ac126485-446f-453e-9623-62a9ffd82469",
+            "parentId": "",
+            "name": "ancient_cobblestone_r_0524010728_texture (1)",
+            "position": {
+                "x": -19.0,
+                "y": 0.03999999910593033,
+                "z": -4.788159370422363
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "PBRGraph"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "5925af56-0047-4415-918d-cc16e4802e06",
+            "parentId": "",
+            "name": "ancient_cobblestone_r_0524010728_texture (7)",
+            "position": {
+                "x": -19.0,
+                "y": 0.03999999910593033,
+                "z": -15.09000015258789
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "PBRGraph"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "753e1f39-a4ed-4db2-81ed-b031e88bb3bc",
+            "parentId": "",
+            "name": "ancient_cobblestone_r_0524010728_texture (2)",
+            "position": {
+                "x": -29.059999465942384,
+                "y": 0.03999999910593033,
+                "z": -4.788159370422363
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "PBRGraph"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "24e510b5-7b83-46e6-ac8c-9b9c0010abf4",
+            "parentId": "",
+            "name": "ancient_cobblestone_r_0524010728_texture (8)",
+            "position": {
+                "x": -29.059999465942384,
+                "y": 0.03999999910593033,
+                "z": -15.09000015258789
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "PBRGraph"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "d6b05274-43e1-41a0-b0ed-b8a6ee893162",
+            "parentId": "",
+            "name": "ancient_cobblestone_r_0524010728_texture (3)",
+            "position": {
+                "x": -29.059999465942384,
+                "y": 0.03999999910593033,
+                "z": 5.099999904632568
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "PBRGraph"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "df69beea-41ec-4991-8023-f5e57cc84a13",
+            "parentId": "",
+            "name": "ancient_cobblestone_r_0524010728_texture (4)",
+            "position": {
+                "x": -19.170000076293947,
+                "y": 0.03999999910593033,
+                "z": 5.099999904632568
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "PBRGraph"
+            ],
+            "scripts": [],
+            "components": []
+        },
+        {
+            "id": "9e715249-9cbf-4f94-b8ec-0d0e071b967c",
+            "parentId": "",
+            "name": "ancient_cobblestone_r_0524010728_texture (5)",
+            "position": {
+                "x": -9.470000267028809,
+                "y": 0.03999999910593033,
+                "z": 5.099999904632568
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0,
+                "z": 5.0
+            },
+            "primitiveType": "",
+            "modelSource": 0,
+            "overrideFilePath": "",
+            "overrideRemoteURL": "",
+            "materials": [
+                "PBRGraph"
+            ],
+            "scripts": [],
+            "components": []
+        }
+    ],
+    "Name": "Complex Test Space",
+    "Description": "Test space with nested primitives and diverse materials.",
+    "Author": "LoboForge",
+    "WebModelLocation": "",
+    "BaseModelPath": "D:\\Development\\W3D_Git\\W3D\\Assets\\ExportedGLTF",
+    "AdultContent": false,
+    "ContentRating": 2,
+    "PrimaryLanguage": 0
+}

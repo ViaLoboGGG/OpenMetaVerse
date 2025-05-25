@@ -21,8 +21,8 @@ public class ExportedSpace
     public string BaseModelPath;
     public bool AdultContent = false;
     public GameContentRating ContentRating = GameContentRating.E_Everyone;
-    public Language PrimaryLanguage = Language.English; 
-
+    public Language PrimaryLanguage = Language.English;
+    public string SkyboxImagePath; // ← New field
 }
 
 

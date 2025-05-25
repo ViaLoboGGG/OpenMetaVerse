@@ -6,6 +6,7 @@ using UnityGLTF;
 
 public class SpaceExporter : EditorWindow
 {
+    private bool skyboxFoldout = false;
     private string exportFileName = "Space.json";
     private ExportedSpaceData spaceDataComponent;
 
@@ -46,6 +47,16 @@ public class SpaceExporter : EditorWindow
         EditorGUILayout.PropertyField(so.FindProperty("Space.AdultContent"));
         EditorGUILayout.PropertyField(so.FindProperty("Space.ContentRating"));
         EditorGUILayout.PropertyField(so.FindProperty("Space.PrimaryLanguage"));
+
+        // Skybox foldout
+        EditorGUILayout.Space();
+        skyboxFoldout = EditorGUILayout.Foldout(skyboxFoldout, "Skybox Settings", true);
+        if (skyboxFoldout)
+        {
+            EditorGUI.indentLevel++;
+            EditorGUILayout.PropertyField(so.FindProperty("Space.SkyboxImagePath"), new GUIContent("Skybox URL or Path"));
+            EditorGUI.indentLevel--;
+        }
 
         so.ApplyModifiedProperties();
 
@@ -122,7 +133,7 @@ public class SpaceExporter : EditorWindow
         {
             id = id,
             parentId = parentId,
-            name = go.name,
+            name = SpaceLoader.CleanName(go.name),
             position = transform.localPosition,
             rotation = transform.localEulerAngles,
             scale = transform.localScale,
@@ -149,6 +160,19 @@ public class SpaceExporter : EditorWindow
         {
             obj.overrideFilePath = modelRef.overrideFilePath;
             obj.overrideRemoteURL = modelRef.overrideRemoteURL;
+        }
+
+        var portal = go.GetComponent<PortalLink>();
+        if (portal != null)
+        {
+            obj.components.Add(new ExportedComponent
+            {
+                type = nameof(PortalLink),
+                properties = new List<ComponentProperty>
+        {
+            new ComponentProperty { key = "destinationUrl", value = portal.destinationUrl }
+        }
+            });
         }
 
         // Materials
@@ -225,6 +249,10 @@ public class SpaceExporter : EditorWindow
             }
         }
     }
+
+
+
+
     private bool IsAutoInstantiatedGLTFChild(GameObject go)
     {
         // This object was not explicitly imported, it's just a child of a GLTF root
