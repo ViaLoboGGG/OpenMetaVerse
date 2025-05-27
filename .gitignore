@@ -81,3 +81,4 @@ Icon?
 # Uncomment if you don’t want to commit the EditorBuildSettings
 #ProjectSettings/EditorBuildSettings.asset
 
+/W3D/Assets/Managers/*.meta

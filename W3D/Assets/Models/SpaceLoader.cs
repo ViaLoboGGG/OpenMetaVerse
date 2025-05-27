@@ -19,6 +19,8 @@ public static class SpaceLoader
         var holder = root.AddComponent<ExportedSpaceData>();
         holder.Space = spaceData;
 
+        // Fire SkyboxLoadStartedEvent
+        EventBus<SkyboxLoadStartedEvent>.Raise(new SkyboxLoadStartedEvent { PathOrUrl = spaceData.SkyboxImagePath });
         LoadSkyboxAsync(spaceData.SkyboxImagePath);
 
         // First, assign transforms and parent non-childed objects to root
@@ -48,6 +50,9 @@ public static class SpaceLoader
             }
         }
 
+        // Fire SpaceLoadCompletedEvent
+        EventBus<SpaceLoadCompletedEvent>.Raise(new SpaceLoadCompletedEvent { Space = spaceData, Root = root });
+
         return root;
     }
 
@@ -57,11 +62,23 @@ public static class SpaceLoader
 
         Texture2D tex = null;
 
+        // Fire SkyboxLoadStartedEvent
+        EventBus<SkyboxLoadStartedEvent>.Raise(new SkyboxLoadStartedEvent { PathOrUrl = pathOrUrl });
+
         if (File.Exists(pathOrUrl)) // Load from local file system
         {
-            byte[] data = File.ReadAllBytes(pathOrUrl);
-            tex = new Texture2D(2, 2);
-            tex.LoadImage(data);
+            try
+            {
+                byte[] data = File.ReadAllBytes(pathOrUrl);
+                tex = new Texture2D(2, 2);
+                tex.LoadImage(data);
+            }
+            catch (Exception ex)
+            {
+                EventBus<SkyboxLoadFailedEvent>.Raise(new SkyboxLoadFailedEvent { PathOrUrl = pathOrUrl, ErrorMessage = ex.Message });
+                Debug.LogError($"❌ Failed to load skybox from file: {ex.Message}");
+                return;
+            }
         }
         else if (Uri.IsWellFormedUriString(pathOrUrl, UriKind.Absolute)) // Load from URL
         {
@@ -74,6 +91,7 @@ public static class SpaceLoader
                 tex = DownloadHandlerTexture.GetContent(www);
             else
             {
+                EventBus<SkyboxLoadFailedEvent>.Raise(new SkyboxLoadFailedEvent { PathOrUrl = pathOrUrl, ErrorMessage = www.error });
                 Debug.LogError($"❌ Failed to load skybox from URL: {www.error}");
                 return;
             }
@@ -81,6 +99,7 @@ public static class SpaceLoader
 
         if (tex == null)
         {
+            EventBus<SkyboxLoadFailedEvent>.Raise(new SkyboxLoadFailedEvent { PathOrUrl = pathOrUrl, ErrorMessage = "Skybox texture was null." });
             Debug.LogWarning("⚠️ Skybox texture was null.");
             return;
         }
@@ -89,8 +108,10 @@ public static class SpaceLoader
         skyboxMaterial.SetTexture("_MainTex", tex);
         RenderSettings.skybox = skyboxMaterial;
         DynamicGI.UpdateEnvironment(); // Optional lighting refresh
-    }
 
+        // Fire SkyboxLoadCompletedEvent
+        EventBus<SkyboxLoadCompletedEvent>.Raise(new SkyboxLoadCompletedEvent { PathOrUrl = pathOrUrl, Texture = tex });
+    }
 
     public static ExportedSpace LoadSpaceFromJson(string json)
     {
@@ -102,7 +123,15 @@ public static class SpaceLoader
         if (!File.Exists(filePath))
             throw new FileNotFoundException("Space JSON file not found", filePath);
 
-        return LoadSpaceFromJson(File.ReadAllText(filePath));
+        // Fire SpaceLoadStartedEvent
+        EventBus<SpaceLoadStartedEvent>.Raise(new SpaceLoadStartedEvent { PathOrUrl = filePath });
+
+        var space = LoadSpaceFromJson(File.ReadAllText(filePath));
+
+        // Fire SpaceLoadCompletedEvent (Root is null here, as not loaded yet)
+        EventBus<SpaceLoadCompletedEvent>.Raise(new SpaceLoadCompletedEvent { Space = space, Root = null });
+
+        return space;
     }
 
     public static string ResolveModelPath(ExportedSpace space, ExportedObject obj)
@@ -116,7 +145,6 @@ public static class SpaceLoader
         string baseName = CleanName(obj.name);
         if (!string.IsNullOrEmpty(space.BaseModelPath))
         {
-            
             string gltf = Path.Combine(space.BaseModelPath, baseName + ".gltf");
             string glb = Path.Combine(space.BaseModelPath, baseName + ".glb");
             if (File.Exists(gltf)) return gltf;
@@ -130,6 +158,7 @@ public static class SpaceLoader
 
         return null;
     }
+
     public static string CleanName(string name)
     {
         if (string.IsNullOrEmpty(name)) return name;
@@ -145,9 +174,14 @@ public static class SpaceLoader
         }
         return name;
     }
+
     public static async Task<GameObject> LoadGltfFromDisk(string fullPath)
     {
         Debug.Log($"Loading GLTF from disk: {fullPath}");
+
+        // Fire AssetLoadStartedEvent
+        EventBus<AssetLoadStartedEvent>.Raise(new AssetLoadStartedEvent { AssetId = fullPath, PathOrUrl = fullPath });
+
         string directory = Path.GetDirectoryName(fullPath).Replace("\\", "/");
         string fileName = Path.GetFileName(fullPath);
 
@@ -159,15 +193,32 @@ public static class SpaceLoader
         };
 
         var importer = new GLTFSceneImporter(fileName, importOptions);
-        await importer.LoadSceneAsync(-1, true);
-        GameObject gltfRoot = importer.LastLoadedScene;
-        gltfRoot.name = Path.GetFileNameWithoutExtension(fileName);
-        return gltfRoot;
+        try
+        {
+            await importer.LoadSceneAsync(-1, true);
+            GameObject gltfRoot = importer.LastLoadedScene;
+            gltfRoot.name = Path.GetFileNameWithoutExtension(fileName);
+
+            // Fire AssetLoadCompletedEvent
+            EventBus<AssetLoadCompletedEvent>.Raise(new AssetLoadCompletedEvent { AssetId = fullPath, LoadedObject = gltfRoot });
+
+            return gltfRoot;
+        }
+        catch (Exception ex)
+        {
+            EventBus<AssetLoadFailedEvent>.Raise(new AssetLoadFailedEvent { AssetId = fullPath, PathOrUrl = fullPath, ErrorMessage = ex.Message });
+            Debug.LogError($"❌ Failed to load GLTF from disk: {ex.Message}");
+            return null;
+        }
     }
 
     public static async Task<GameObject> LoadGltfFromUrl(string url)
     {
         Debug.Log($"Loading GLTF from URL: {url}");
+
+        // Fire AssetLoadStartedEvent
+        EventBus<AssetLoadStartedEvent>.Raise(new AssetLoadStartedEvent { AssetId = url, PathOrUrl = url });
+
         string directory = url.Substring(0, url.LastIndexOf('/') + 1);
         string fileName = Path.GetFileName(url);
 
@@ -179,10 +230,23 @@ public static class SpaceLoader
         };
 
         var importer = new GLTFSceneImporter(fileName, importOptions);
-        await importer.LoadSceneAsync(-1, true);
-        GameObject gltfRoot = importer.LastLoadedScene;
-        gltfRoot.name = Path.GetFileNameWithoutExtension(fileName);
-        return gltfRoot;
+        try
+        {
+            await importer.LoadSceneAsync(-1, true);
+            GameObject gltfRoot = importer.LastLoadedScene;
+            gltfRoot.name = Path.GetFileNameWithoutExtension(fileName);
+
+            // Fire AssetLoadCompletedEvent
+            EventBus<AssetLoadCompletedEvent>.Raise(new AssetLoadCompletedEvent { AssetId = url, LoadedObject = gltfRoot });
+
+            return gltfRoot;
+        }
+        catch (Exception ex)
+        {
+            EventBus<AssetLoadFailedEvent>.Raise(new AssetLoadFailedEvent { AssetId = url, PathOrUrl = url, ErrorMessage = ex.Message });
+            Debug.LogError($"❌ Failed to load GLTF from URL: {ex.Message}");
+            return null;
+        }
     }
 
     public static async Task<Dictionary<string, GameObject>> PreloadSpaceAssetsAsync(ExportedSpace space)
@@ -191,15 +255,87 @@ public static class SpaceLoader
 
         foreach (var obj in space.objects)
         {
-            GameObject loaded = await SpaceObjectFactory.PreloadAsync(obj, space);
-            if (loaded != null)
+            string assetId = obj.id;
+            string pathOrUrl = ResolveModelPath(space, obj);
+
+            // Fire AssetLoadStartedEvent
+            EventBus<AssetLoadStartedEvent>.Raise(new AssetLoadStartedEvent { AssetId = assetId, PathOrUrl = pathOrUrl });
+
+            try
             {
-                preloaded[obj.id] = loaded;
+                GameObject loaded = await SpaceObjectFactory.PreloadAsync(obj, space);
+                if (loaded != null)
+                {
+                    preloaded[obj.id] = loaded;
+                    // Fire AssetLoadCompletedEvent
+                    EventBus<AssetLoadCompletedEvent>.Raise(new AssetLoadCompletedEvent { AssetId = assetId, LoadedObject = loaded });
+                }
+                else
+                {
+                    // Fire AssetLoadFailedEvent
+                    EventBus<AssetLoadFailedEvent>.Raise(new AssetLoadFailedEvent { AssetId = assetId, PathOrUrl = pathOrUrl, ErrorMessage = "Loaded object was null." });
+                }
+            }
+            catch (Exception ex)
+            {
+                EventBus<AssetLoadFailedEvent>.Raise(new AssetLoadFailedEvent { AssetId = assetId, PathOrUrl = pathOrUrl, ErrorMessage = ex.Message });
             }
         }
 
         return preloaded;
     }
+}
 
 
+public struct SpaceLoadStartedEvent
+{
+    public string PathOrUrl;
+}
+
+public struct SpaceLoadCompletedEvent
+{
+    public ExportedSpace Space;
+    public GameObject Root;
+}
+
+public struct SpaceLoadFailedEvent
+{
+    public string PathOrUrl;
+    public string ErrorMessage;
+}
+
+public struct AssetLoadStartedEvent
+{
+    public string AssetId;
+    public string PathOrUrl;
+}
+
+public struct AssetLoadCompletedEvent
+{
+    public string AssetId;
+    public GameObject LoadedObject;
+}
+
+public struct AssetLoadFailedEvent
+{
+    public string AssetId;
+    public string PathOrUrl;
+    public string ErrorMessage;
+}
+
+public struct SkyboxLoadStartedEvent
+{
+    public string PathOrUrl;
+}
+
+public struct SkyboxLoadCompletedEvent
+{
+    public string PathOrUrl;
+    public Texture2D Texture;
+}
+
+public struct SkyboxLoadFailedEvent
+{
+    public string PathOrUrl;
+    public string ErrorMessage;
 }
