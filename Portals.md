@@ -1,9 +1,14 @@
 ## ✅ Portal Travel System – Implementation Checklist
 
+###  0. Space Loaded
+- [x] Load all the assets
+- [x] When the portal assets load - check to see if the destination space exists.
+- [x] If the destination space exists download the space json
+- [x] Preload the space meta so we can show the name and description, etc of the space.
+
 ### 🚪 1. Portal Entry Trigger
-- [ ] Detect when the player enters a portal trigger collider
-- [ ] Read portal metadata from scene JSON (e.g., `targetSpaceId`, `targetServer`, `targetSpawnPoint`)
-- [ ] Fire `PortalEntered` event with extracted portal data
+- [x] Detect when the player enters a portal trigger collider
+- [x] Fire `PortalEntered` event with extracted portal data
 
 ---
 
@@ -16,9 +21,9 @@
 ---
 
 ### 🌐 3. Background Asset Download
-- [ ] Begin downloading target space JSON file
-- [ ] Queue any required models, textures, or other assets for the new space
-- [ ] Parse JSON and prepare scene instantiation data
+
+- [x] Queue any required models, textures, or other assets for the new space
+- [x] Parse JSON and prepare scene instantiation data
 
 ---
 
